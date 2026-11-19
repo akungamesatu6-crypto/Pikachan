@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #239",
+  "description": "A gentle baby plant dino sprouting fresh leaves, the first seed of the PikaCHAN Plant line.",
+  "image": "https://pikachan.vercel.app/assets/sproutle.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Sproutle"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Plant"
+    }
+  ]
+}
