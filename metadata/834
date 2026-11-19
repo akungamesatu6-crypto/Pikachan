@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #834",
+  "description": "A giant plant beast in full bloom, the final evolution of the PikaCHAN Plant line.",
+  "image": "https://pikachan.vercel.app/assets/bloombeast.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Bloombeast"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Plant"
+    }
+  ]
+}
