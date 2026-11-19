@@ -298,7 +298,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
         <div class="ring-lbl" data-i18n="ringLbl">minted of 1,111 total supply</div>
         <div class="stat-row">
           <div class="stat"><b id="statFree">0</b><span data-i18n="statFree">free minted</span></div>
-          <div class="stat"><b id="statPaid">0</b><span data-i18n="statPaid">paid minted</span></div>
           <div class="stat"><b id="statState">Open</b><span data-i18n="statState">mint state</span></div>
         </div>
       </div>
@@ -603,7 +602,7 @@ const RPCS = [
   "https://1rpc.io/bnb"
 ];
 const SEL = {
-  totalMinted: "0xa2309ff8", freeMinted: "0xd10a1a2b", paidMinted: "0x2806b8fb",
+  totalMinted: "0xa2309ff8", freeMinted: "0xd10a1a2b",
   mintOpen: "0x24bbd049", balanceOf: "0x70a08231"
 };
 const CHARS = [
@@ -658,7 +657,7 @@ const I18N = {
   chainTitle: { en: "⚡🔥💧🌱 Four lines, one night sky", ja: "⚡🔥💧🌱 4つのライン、ひとつの夜空" },
   chainSub: { en: "Epic phoenixes and the two Legendary guardians stand alone — they have no baby form.", ja: "エピックのフェニックスと2体のレジェンダリーは単独です — ベビー形態はありません。" },
   ringLbl: { en: "minted of 1,111 total supply", ja: "総供給1,111体中のミント数" },
-  statFree: { en: "free minted", ja: "無料ミント" }, statPaid: { en: "paid minted", ja: "有料ミント" },
+  statFree: { en: "free minted", ja: "無料ミント" },
   statState: { en: "mint state", ja: "ミント状態" },
   liveNote: { en: "Live from the contract through a public BSC RPC (no wallet needed), refreshed automatically. Mint is open — 0 / 1,111 minted so far.", ja: "公開BSC RPCからコントラクトをライブで読み取り、自動更新します。ミントは開始しました — 現在0 / 1,111です。" },
   mintState: { en: "Mint is OPEN — first mint per wallet is free with an Agent ID, then 0.001 BNB each.", ja: "ミント開始中 — ウォレット毎の初回はAgent IDで無料、その後は0.001 BNBです。" },
@@ -855,17 +854,15 @@ const padAddr = (a) => "0x000000000000000000000000" + a.slice(2).toLowerCase();
 async function refreshLive() {
   if (!DEPLOYED) return; // preview mode: keep the honest planned display (0 / 1,111)
   try {
-    const [tm, fm, pm, open] = await Promise.all([
+    const [tm, fm, open] = await Promise.all([
       rpcCall(CFG.NFT, SEL.totalMinted),
       rpcCall(CFG.NFT, SEL.freeMinted),
-      rpcCall(CFG.NFT, SEL.paidMinted),
       rpcCall(CFG.NFT, SEL.mintOpen)
     ]);
-    const total = hexToInt(tm), free = hexToInt(fm), paid = hexToInt(pm);
+    const total = hexToInt(tm), free = hexToInt(fm);
     const isOpen = hexToInt(open) === 1;
     $("statMinted").textContent = total.toLocaleString("en-US") + " / 1,111";
     $("statFree").textContent = free.toLocaleString("en-US");
-    $("statPaid").textContent = paid.toLocaleString("en-US");
     $("statState").textContent = isOpen ? "Open" : "Closed";
     $("ringPct").textContent = Math.floor((total / CFG.MAX_SUPPLY) * 100) + "%";
     $("ringFill").style.strokeDashoffset = String(339.29 * (1 - total / CFG.MAX_SUPPLY));
