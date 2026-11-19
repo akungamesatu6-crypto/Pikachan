@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #656",
+  "description": "An evolved plant dino crowned with blooming petals and sturdy horns.",
+  "image": "https://pikachan.vercel.app/assets/petalhorn.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Petalhorn"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Plant"
+    }
+  ]
+}
