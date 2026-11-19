@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1111",
+  "description": "The one-of-one golden electric mouse, the shining Limited crown of PikaCHAN.",
+  "image": "https://pikachan.vercel.app/assets/golden-voltmouse.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Golden Voltmouse"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Limited"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Electric"
+    }
+  ]
+}

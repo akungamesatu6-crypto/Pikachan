@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1105",
+  "description": "A small mythical pixie woven from starlight, rare and radiant.",
+  "image": "https://pikachan.vercel.app/assets/starpixie.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Starpixie"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Cosmic"
+    }
+  ]
+}
