@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #585",
+  "description": "An evolved electric mouse with a charged tail, crackling with growing power.",
+  "image": "https://pikachan.vercel.app/assets/voltail.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Voltail"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Electric"
+    }
+  ]
+}

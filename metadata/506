@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #506",
+  "description": "A curious baby water turtle riding tiny waves, the first ripple of the PikaCHAN Water line.",
+  "image": "https://pikachan.vercel.app/assets/tidelet.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Tidelet"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Water"
+    }
+  ]
+}
