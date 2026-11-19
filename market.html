@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PikaCHAN Marketplace — Trade Companions</title>
+<meta name="description" content="PikaCHAN marketplace: browse listings read-only from the chain. List with list(tokenId, price), buy with buy(tokenId) — through your agent. Seller 95%, royalty 5%.">
+<style>
+:root{
+  --bg:#070b1e; --bg2:#0b1130; --card:#101736; --card2:#141d42; --line:#232c5c;
+  --ink:#f4f6ff; --muted:#a7b0d6; --dim:#7d88b5;
+  --volt:#ffd400; --volt2:#ffe45c; --gold:#fbbf24; --ok:#4ade80; --bad:#f87171; --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;
+  background-image:radial-gradient(900px 480px at 85% -5%,rgba(255,212,0,.14),transparent 60%),radial-gradient(700px 420px at 0% 12%,rgba(56,189,248,.12),transparent 60%)}
+img{max-width:100%;display:block}
+a{color:var(--volt2)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px}
+h1,h2,h3{line-height:1.25}
+h2{font-size:clamp(22px,5.4vw,30px);margin-bottom:6px}
+h2 .kicker{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--volt);margin-bottom:6px}
+.lead{color:var(--muted);max-width:640px}
+section{padding:44px 0}
+.btn{display:inline-block;background:var(--volt);color:#191300;font-weight:800;border:0;border-radius:999px;padding:12px 22px;font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{background:var(--volt2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--volt)}
+.btn.small{padding:8px 14px;font-size:13.5px}
+.btn:disabled{background:#3a4266;color:#9aa3c7;cursor:not-allowed}
+header{position:sticky;top:0;z-index:50;background:rgba(7,11,30,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;padding:11px 16px;max-width:1060px;margin:0 auto}
+.logo{font-weight:900;font-size:19px;letter-spacing:.04em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.logo b{color:var(--volt)}
+.hd nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto}
+.hd nav a{color:var(--muted);text-decoration:none;font-size:13.5px;padding:7px 9px;border-radius:8px;white-space:nowrap}
+.hd nav a:hover{color:var(--ink);background:var(--card)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-size:13px;font-weight:700;cursor:pointer}
+.lang button.on{background:var(--volt);color:#191300}
+.preview{background:linear-gradient(90deg,#3a2b00,#571b00);border-bottom:1px solid #6b4d00;color:#ffe9a8;text-align:center;padding:10px 14px;font-size:13.5px}
+.preview b{color:#fff}
+.hero{padding:36px 0 8px}
+.hero h1{font-size:clamp(30px,7vw,46px)}
+.hero h1 span{color:var(--volt)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.chip b{color:var(--ink)}
+.listings{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.listing{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.listing img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.listing .lb{padding:12px 13px 14px}
+.listing h3{font-size:15.5px}
+.listing p{font-size:12.5px;color:var(--muted)}
+.listing .price{font-size:18px;font-weight:800;margin-top:7px;color:var(--volt)}
+.listing .seller{font-size:11.5px;color:var(--dim);font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:28px;text-align:center;color:var(--muted);font-size:14.5px}
+.empty b{color:var(--ink)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.info-card h3{margin-bottom:8px}
+.info-card p,.info-card li{font-size:14px;color:var(--muted)}
+.info-card ul{margin-left:20px}
+.info-card li{margin-bottom:5px}
+.info-card b{color:var(--ink)}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;word-break:break-all}
+.prompt-box{position:relative;background:#05081a;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.prompt-box pre{white-space:pre-wrap;word-break:break-word;font-size:12.5px;color:#dbe4ff;font-family:ui-monospace,Menlo,Consolas,monospace;max-height:300px;overflow:auto}
+.copy-btn{position:absolute;top:8px;right:8px}
+.field label{display:block;font-size:13px;font-weight:700;margin:14px 0 4px}
+.field input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:12px 14px;font-size:14px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.field input:focus{outline:2px solid var(--volt)}
+.steps-ol{margin:10px 0 4px 20px;color:var(--muted);font-size:14px}
+.steps-ol li{margin-bottom:6px}
+.steps-ol b{color:var(--ink)}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700;font-size:15px}
+.faq p{font-size:14px;color:var(--muted);margin-top:8px}
+footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--muted);font-size:13.5px}
+.share-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.live-note{font-size:12.5px;color:var(--dim);margin-top:10px}
+@media (max-width:820px){
+  .listings{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .hd nav a{display:none}
+}
+@media (max-width:480px){ .listings{grid-template-columns:1fr 1fr;gap:9px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a class="logo" href="index.html">⚡ <b>Pika</b>CHAN</a>
+    <nav>
+      <a href="index.html" data-i18n="navHome">Mint page</a>
+      <a href="#listings" data-i18n="navList">Listings</a>
+      <a href="#how" data-i18n="navHow">List &amp; buy</a>
+      <a href="#fees" data-i18n="navFees">Fees</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="langEn" class="on" type="button">EN</button>
+      <button id="langJa" type="button">日本語</button>
+    </div>
+    <a class="btn small" href="index.html#mint" data-i18n="navMint">Mint</a>
+  </div>
+</header>
+
+<div class="preview">⚠️ <b data-i18n="previewTitle">PREVIEW — marketplace contract not deployed yet.</b> <span data-i18n="previewText">No listings exist on-chain yet. Addresses are TBD. This page reads listings live from the chain once deployed.</span></div>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>PikaCHAN <span data-i18n="heroSub">Marketplace</span></h1>
+    <p class="lead" data-i18n="heroLead">Browse every listing straight from the chain — read-only, no wallet needed. Listing and buying happen through your agent, never through a pop-up on this page.</p>
+    <div class="chips">
+      <span class="chip"><b>95%</b> <span data-i18n="chipSeller">to the seller</span></span>
+      <span class="chip"><b>5%</b> <span data-i18n="chipRoy">royalty to the creator wallet</span></span>
+      <span class="chip"><b>0.00025 BNB</b> <span data-i18n="chipList">listing fee (planned)</span></span>
+      <span class="chip"><b>0</b> <span data-i18n="chipLive">listings right now</span></span>
+    </div>
+  </div>
+</section>
+
+<section id="listings" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="listKicker">Live listings</span><span data-i18n="listTitle">On the market now</span></h2>
+      <p class="lead" data-i18n="listLead">Prices are in BNB. A buyer pays the exact listing price — the companion transfers the moment payment lands.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn small" id="refreshBtn" type="button" data-i18n="refresh">↻ Refresh listings</button>
+      <span class="live-note" id="listNote" style="align-self:center" data-i18n="listNote">Preview: the marketplace contract is not deployed, so there are honestly 0 listings. Once deployed, this grid fills from the chain via a public BSC RPC.</span>
+    </div>
+    <div class="listings" id="listingsGrid"></div>
+    <div class="empty" id="emptyBox"><b data-i18n="emptyT">No listings yet.</b><br><span data-i18n="emptyP">The marketplace contract has not been deployed, so nothing is listed. Check back after deployment — or be the first to list once mint opens.</span></div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="howKicker">List &amp; buy</span><span data-i18n="howTitle">Trade through your agent</span></h2>
+    </div>
+    <div class="two-col">
+      <div class="info-card">
+        <h3 data-i18n="listT">List a companion</h3>
+        <div class="field">
+          <label for="listTokenId" data-i18n="listIdLbl">Token ID to list</label>
+          <input id="listTokenId" type="number" min="1" max="1111" placeholder="e.g. 42">
+          <label for="listPrice" data-i18n="listPriceLbl">Price in BNB</label>
+          <input id="listPrice" type="text" inputmode="decimal" placeholder="e.g. 0.005">
+        </div>
+        <div class="prompt-box">
+          <button class="btn small copy-btn" id="listPromptCopy" type="button" data-i18n="copyBtn">Copy</button>
+          <pre id="listPromptText"></pre>
+        </div>
+        <ol class="steps-ol">
+          <li data-i18n="listS1"><b>Fill in the token ID and price</b> above — the prompt updates itself.</li>
+          <li data-i18n="listS2"><b>Copy the prompt</b> and paste it into your agent with the skill (SKILL.md).</li>
+          <li data-i18n="listS3">The agent calls <span class="mono">list(tokenId, price)</span> on the marketplace contract (listing fee 0.00025 BNB, planned).</li>
+          <li data-i18n="listS4"><b>Cancel / reprice:</b> only the seller can cancel or change the price before it sells — ask your agent to call the matching cancel / reprice function.</li>
+        </ol>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="buyT">Buy a companion</h3>
+        <div class="field">
+          <label for="buyTokenId" data-i18n="buyIdLbl">Token ID to buy</label>
+          <input id="buyTokenId" type="number" min="1" max="1111" placeholder="e.g. 42">
+        </div>
+        <div class="prompt-box">
+          <button class="btn small copy-btn" id="buyPromptCopy" type="button" data-i18n="copyBtn">Copy</button>
+          <pre id="buyPromptText"></pre>
+        </div>
+        <ol class="steps-ol">
+          <li data-i18n="buyS1"><b>Pick a listing</b> above and note its token ID and exact price.</li>
+          <li data-i18n="buyS2"><b>Copy the prompt</b> and paste it into your agent with the skill (SKILL.md).</li>
+          <li data-i18n="buyS3">The agent calls <span class="mono">buy(tokenId)</span> and sends the exact listing price in BNB.</li>
+          <li data-i18n="buyS4"><b>Split on sale:</b> 95% to the seller, 5% royalty to the creator wallet — enforced by the contract, not by this page.</li>
+        </ol>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn small ghost" href="SKILL.md" target="_blank" rel="noopener">📄 Agent Skill (SKILL.md)</a>
+          <a class="btn small ghost" href="llms.txt" target="_blank" rel="noopener">📄 llms.txt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fees">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="feesKicker">Fees &amp; facts</span><span data-i18n="feesTitle">The deal, in numbers</span></h2>
+    </div>
+    <div class="two-col">
+      <div class="info-card">
+        <h3 data-i18n="feesT">On every sale</h3>
+        <ul>
+          <li><b>95%</b> <span data-i18n="feesSeller">of the price goes to the seller</span></li>
+          <li><b>5%</b> <span data-i18n="feesRoy">royalty to the creator wallet (BAW) — <span class="mono">0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2</span></span></li>
+          <li><b>0.00025 BNB</b> <span data-i18n="feesList">listing fee (planned)</span></li>
+          <li><b>Floor rule:</b> <span data-i18n="feesFloor">listings below 80% of the reference price are not accepted (planned)</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="factsT">Contract facts</h3>
+        <ul>
+          <li><b>NFT:</b> <span class="mono">TBD — 0x0000000000000000000000000000000000000000</span></li>
+          <li><b>Marketplace:</b> <span class="mono">TBD — 0x0000000000000000000000000000000000000000</span></li>
+          <li><b>$PIKA:</b> <span class="mono">TBD — 0x0000000000000000000000000000000000000000</span></li>
+          <li><b>Chain:</b> BNB Chain (56) · <b>Supply:</b> 1,111 · <b>Symbol:</b> PIKA</li>
+          <li><b>Metadata:</b> <span class="mono">https://pikachan.vercel.app/metadata/</span></li>
+        </ul>
+        <p style="margin-top:10px" data-i18n="factsN">All times on this page are UTC. Nothing here is financial advice, and no return is promised.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="faqKicker">FAQ</span><span data-i18n="faqTitle">Marketplace questions</span></h2>
+    </div>
+    <details><summary data-i18n="faq1q">Why are there no listings?</summary><p data-i18n="faq1a">The marketplace contract has not been deployed yet, so there is honestly nothing to list or buy. Listings appear here automatically once the contract is live and the first companion is listed.</p></details>
+    <details><summary data-i18n="faq2q">How do I buy without connecting a wallet here?</summary><p data-i18n="faq2a">You don't buy on this page. Copy the buy prompt, paste it into your Binance Agentic Wallet / AI agent with the skill (SKILL.md), and the agent calls buy(tokenId) with the exact listing price.</p></details>
+    <details><summary data-i18n="faq3q">Who gets the money when something sells?</summary><p data-i18n="faq3a">95% goes to the seller and 5% royalty goes to the creator wallet. The split is enforced by the marketplace contract at the moment of sale.</p></details>
+    <details><summary data-i18n="faq4q">Can I cancel or reprice my listing?</summary><p data-i18n="faq4a">Yes — only the seller can cancel a listing or change its price, any time before it sells. Ask your agent to call the matching function on the marketplace contract.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b style="font-size:17px;color:var(--ink)">⚡ PikaCHAN Marketplace</b><br><span data-i18n="footTag">Four elements. One spark.</span></p>
+    <div class="share-row">
+      <a class="btn small ghost" href="index.html" data-i18n="footBack">← Back to the mint page</a>
+      <button class="btn small ghost" id="copyLinkBtn" type="button" data-i18n="copyLink">Copy page link</button>
+    </div>
+    <p><span data-i18n="footX">Official X: to be announced.</span><br>© 2026 PikaCHAN. All artwork is original. Nothing here is financial advice, and no return is promised. All times UTC.</p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* PikaCHAN marketplace — read-only listing browser. Contracts NOT deployed:
+   all addresses are the zero address (TBD). Listings load from the chain
+   only after deployment, via public BSC RPC. No wallet is used anywhere. */
+const CFG = {
+  NFT: "0x0000000000000000000000000000000000000000",
+  TOKEN: "0x0000000000000000000000000000000000000000",
+  MARKET: "0x0000000000000000000000000000000000000000",
+  OWNER: "0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2",
+  SITE_URL: "https://pikachan.vercel.app/",
+  MAX_SUPPLY: 1111
+};
+const DEPLOYED = CFG.MARKET !== "0x0000000000000000000000000000000000000000";
+const RPCS = [
+  "https://bsc-dataseed1.defibit.io",
+  "https://bsc-rpc.publicnode.com",
+  "https://bsc-dataseed3.bnbchain.org",
+  "https://1rpc.io/bnb"
+];
+const CHARS = [
+  { name: "Piklet", slug: "piklet", tier: "Common", el: "Electric", start: 1, end: 139 },
+  { name: "Sproutle", slug: "sproutle", tier: "Common", el: "Plant", start: 140, end: 278 },
+  { name: "Emberlet", slug: "emberlet", tier: "Common", el: "Fire", start: 279, end: 417 },
+  { name: "Tidelet", slug: "tidelet", tier: "Common", el: "Water", start: 418, end: 555 },
+  { name: "Voltail", slug: "voltail", tier: "Uncommon", el: "Electric", start: 556, end: 625 },
+  { name: "Petalhorn", slug: "petalhorn", tier: "Uncommon", el: "Plant", start: 626, end: 695 },
+  { name: "Emberclaw", slug: "emberclaw", tier: "Uncommon", el: "Fire", start: 696, end: 765 },
+  { name: "Tideback", slug: "tideback", tier: "Uncommon", el: "Water", start: 766, end: 833 },
+  { name: "Bloombeast", slug: "bloombeast", tier: "Rare", el: "Plant", start: 834, end: 889 },
+  { name: "Infernodrake", slug: "infernodrake", tier: "Rare", el: "Fire", start: 890, end: 944 },
+  { name: "Tidecannon", slug: "tidecannon", tier: "Rare", el: "Water", start: 945, end: 999 },
+  { name: "Frostphoenix", slug: "frostphoenix", tier: "Epic", el: "Ice", start: 1000, end: 1029 },
+  { name: "Thunderphoenix", slug: "thunderphoenix", tier: "Epic", el: "Electric", start: 1030, end: 1059 },
+  { name: "Cinderphoenix", slug: "cinderphoenix", tier: "Epic", el: "Fire", start: 1060, end: 1088 },
+  { name: "Psyguardian", slug: "psyguardian", tier: "Legendary", el: "Psychic", start: 1089, end: 1099 },
+  { name: "Starpixie", slug: "starpixie", tier: "Legendary", el: "Cosmic", start: 1100, end: 1110 },
+  { name: "Golden Voltmouse", slug: "golden-voltmouse", tier: "Limited", el: "Electric", start: 1111, end: 1111 }
+];
+const $ = (id) => document.getElementById(id);
+function charFor(id) {
+  return CHARS.find((c) => id >= c.start && id <= c.end) || { name: "PikaCHAN #" + id, slug: "piklet", tier: "—", el: "—" };
+}
+
+/* ---------- i18n (EN / JA) ---------- */
+let LANG = "en";
+const I18N = {
+  navHome: { en: "Mint page", ja: "ミントページ" }, navList: { en: "Listings", ja: "出品一覧" },
+  navHow: { en: "List & buy", ja: "出品・購入" }, navFees: { en: "Fees", ja: "手数料" },
+  navMint: { en: "Mint", ja: "ミント" },
+  previewTitle: { en: "PREVIEW — marketplace contract not deployed yet.", ja: "プレビュー — マーケットプレイス・コントラクトは未デプロイです。" },
+  previewText: { en: "No listings exist on-chain yet. Addresses are TBD. This page reads listings live from the chain once deployed.", ja: "オンチェーンにはまだ出品がありません。アドレスは未定です。デプロイ後、このページはチェーンからライブで出品を読み取ります。" },
+  heroSub: { en: "Marketplace", ja: "マーケットプレイス" },
+  heroLead: { en: "Browse every listing straight from the chain — read-only, no wallet needed. Listing and buying happen through your agent, never through a pop-up on this page.", ja: "すべての出品をチェーンから直接閲覧 — 読み取り専用、ウォレット不要。出品と購入はエージェント経由で行い、このページのポップアップ経由ではありません。" },
+  chipSeller: { en: "to the seller", ja: "売り手へ" },
+  chipRoy: { en: "royalty to the creator wallet", ja: "クリエイターウォレットへのロイヤリティ" },
+  chipList: { en: "listing fee (planned)", ja: "出品手数料（予定）" },
+  chipLive: { en: "listings right now", ja: "現在の出品数" },
+  listKicker: { en: "Live listings", ja: "ライブ出品" },
+  listTitle: { en: "On the market now", ja: "現在販売中" },
+  listLead: { en: "Prices are in BNB. A buyer pays the exact listing price — the companion transfers the moment payment lands.", ja: "価格はBNB建てです。購入者は表示価格ちょうどを支払い、支払いが完了した瞬間に仲間が移転します。" },
+  refresh: { en: "↻ Refresh listings", ja: "↻ 出品を更新" },
+  listNote: { en: "Preview: the marketplace contract is not deployed, so there are honestly 0 listings. Once deployed, this grid fills from the chain via a public BSC RPC.", ja: "プレビュー：マーケットプレイス・コントラクトは未デプロイのため、正直に0件です。デプロイ後、この一覧は公開BSC RPCからチェーンの情報で埋まります。" },
+  emptyT: { en: "No listings yet.", ja: "まだ出品がありません。" },
+  emptyP: { en: "The marketplace contract has not been deployed, so nothing is listed. Check back after deployment — or be the first to list once mint opens.", ja: "マーケットプレイス・コントラクトは未デプロイのため、出品はまだありません。デプロイ後にまた確認してください — またはミント開始後に最初の出品者になりましょう。" },
+  howKicker: { en: "List & buy", ja: "出品・購入" },
+  howTitle: { en: "Trade through your agent", ja: "エージェント経由でトレード" },
+  listT: { en: "List a companion", ja: "仲間を出品する" },
+  listIdLbl: { en: "Token ID to list", ja: "出品するトークンID" },
+  listPriceLbl: { en: "Price in BNB", ja: "価格（BNB）" },
+  copyBtn: { en: "Copy", ja: "コピー" },
+  listS1: { en: "<b>Fill in the token ID and price</b> above — the prompt updates itself.", ja: "<b>上のトークンIDと価格を入力</b> — プロンプトが自動で更新されます。" },
+  listS2: { en: "<b>Copy the prompt</b> and paste it into your agent with the skill (SKILL.md).", ja: "<b>プロンプトをコピー</b>し、スキル（SKILL.md）と一緒にエージェントに貼ります。" },
+  listS3: { en: "The agent calls <span class=\"mono\">list(tokenId, price)</span> on the marketplace contract (listing fee 0.00025 BNB, planned).", ja: "エージェントがマーケットプレイス・コントラクトの<span class=\"mono\">list(tokenId, price)</span>を呼びます（出品手数料0.00025 BNB、予定）。" },
+  listS4: { en: "<b>Cancel / reprice:</b> only the seller can cancel or change the price before it sells — ask your agent to call the matching cancel / reprice function.", ja: "<b>キャンセル／価格変更：</b>売却前は売り手のみがキャンセルや価格変更ができます — エージェントに対応する関数を呼ばせてください。" },
+  buyT: { en: "Buy a companion", ja: "仲間を購入する" },
+  buyIdLbl: { en: "Token ID to buy", ja: "購入するトークンID" },
+  buyS1: { en: "<b>Pick a listing</b> above and note its token ID and exact price.", ja: "<b>上の出品から選ぶ</b> — トークンIDと正確な価格を確認します。" },
+  buyS2: { en: "<b>Copy the prompt</b> and paste it into your agent with the skill (SKILL.md).", ja: "<b>プロンプトをコピー</b>し、スキル（SKILL.md）と一緒にエージェントに貼ります。" },
+  buyS3: { en: "The agent calls <span class=\"mono\">buy(tokenId)</span> and sends the exact listing price in BNB.", ja: "エージェントが<span class=\"mono\">buy(tokenId)</span>を呼び、表示価格ちょうどのBNBを送ります。" },
+  buyS4: { en: "<b>Split on sale:</b> 95% to the seller, 5% royalty to the creator wallet — enforced by the contract, not by this page.", ja: "<b>販売時の分配：</b>売り手95%、ロイヤリティ5%はクリエイターウォレットへ — このページではなくコントラクトが強制します。" },
+  feesKicker: { en: "Fees & facts", ja: "手数料と事実" },
+  feesTitle: { en: "The deal, in numbers", ja: "数字で見る取引条件" },
+  feesT: { en: "On every sale", ja: "すべての販売で" },
+  feesSeller: { en: "of the price goes to the seller", ja: "価格のうち売り手へ" },
+  feesRoy: { en: "royalty to the creator wallet (BAW)", ja: "クリエイターウォレット（BAW）へのロイヤリティ" },
+  feesList: { en: "listing fee (planned)", ja: "出品手数料（予定）" },
+  feesFloor: { en: "listings below 80% of the reference price are not accepted (planned)", ja: "参考価格の80%未満の出品は受け付けられません（予定）" },
+  factsT: { en: "Contract facts", ja: "コントラクトの事実" },
+  factsN: { en: "All times on this page are UTC. Nothing here is financial advice, and no return is promised.", ja: "このページの時刻はすべてUTCです。投資助言ではなく、リターンの約束はありません。" },
+  faqKicker: { en: "FAQ", ja: "FAQ" },
+  faqTitle: { en: "Marketplace questions", ja: "マーケットプレイスの質問" },
+  faq1q: { en: "Why are there no listings?", ja: "なぜ出品がないのですか？" },
+  faq1a: { en: "The marketplace contract has not been deployed yet, so there is honestly nothing to list or buy. Listings appear here automatically once the contract is live and the first companion is listed.", ja: "マーケットプレイス・コントラクトは未デプロイのため、正直に出品も購入対象もありません。コントラクトがライブになり最初の仲間が出品されると、ここに自動で表示されます。" },
+  faq2q: { en: "How do I buy without connecting a wallet here?", ja: "ここでウォレットを接続せずに買うには？" },
+  faq2a: { en: "You don't buy on this page. Copy the buy prompt, paste it into your Binance Agentic Wallet / AI agent with the skill (SKILL.md), and the agent calls buy(tokenId) with the exact listing price.", ja: "このページでは購入しません。購入用プロンプトをコピーし、スキル（SKILL.md）と一緒にBinance Agentic Wallet / AIエージェントに貼ると、エージェントがbuy(tokenId)を表示価格ちょうどで呼びます。" },
+  faq3q: { en: "Who gets the money when something sells?", ja: "売れたとき、お金は誰に行きますか？" },
+  faq3a: { en: "95% goes to the seller and 5% royalty goes to the creator wallet. The split is enforced by the marketplace contract at the moment of sale.", ja: "95%は売り手へ、5%のロイヤリティはクリエイターウォレットへ。分配は販売の瞬間にマーケットプレイス・コントラクトが強制します。" },
+  faq4q: { en: "Can I cancel or reprice my listing?", ja: "出品をキャンセルしたり価格変更したりできますか？" },
+  faq4a: { en: "Yes — only the seller can cancel a listing or change its price, any time before it sells. Ask your agent to call the matching function on the marketplace contract.", ja: "はい — 売却前であれば売り手のみがキャンセルや価格変更ができます。エージェントに対応する関数を呼ばせてください。" },
+  footTag: { en: "Four elements. One spark.", ja: "四つの元素。ひとつの火花。" },
+  footBack: { en: "← Back to the mint page", ja: "← ミントページに戻る" },
+  copyLink: { en: "Copy page link", ja: "ページリンクをコピー" },
+  footX: { en: "Official X: to be announced.", ja: "公式X：近日発表。" }
+};
+function applyLang(l) {
+  LANG = l;
+  document.documentElement.lang = l === "ja" ? "ja" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const k = el.getAttribute("data-i18n");
+    if (I18N[k] && I18N[k][l] !== undefined) el.innerHTML = I18N[k][l];
+  });
+  $("langEn").classList.toggle("on", l === "en");
+  $("langJa").classList.toggle("on", l === "ja");
+  renderPrompts();
+}
+$("langEn").addEventListener("click", () => applyLang("en"));
+$("langJa").addEventListener("click", () => applyLang("ja"));
+
+/* ---------- public RPC reads (no wallet needed) ---------- */
+async function rpcCall(to, data) {
+  const body = JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to, data }, "latest"], id: 1 });
+  for (const url of RPCS) {
+    try {
+      const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      const j = await r.json();
+      if (j && j.result) return j.result;
+    } catch (e) { /* try next endpoint */ }
+  }
+  throw new Error("all RPC endpoints failed");
+}
+async function loadListings() {
+  const grid = $("listingsGrid"), empty = $("emptyBox"), note = $("listNote");
+  grid.innerHTML = "";
+  if (!DEPLOYED) {
+    empty.style.display = "block";
+    note.textContent = LANG === "ja"
+      ? "プレビュー：マーケットプレイス・コントラクトは未デプロイのため、正直に0件です。デプロイ後、この一覧は公開BSC RPCからチェーンの情報で埋まります。"
+      : "Preview: the marketplace contract is not deployed, so there are honestly 0 listings. Once deployed, this grid fills from the chain via a public BSC RPC.";
+    return;
+  }
+  note.textContent = LANG === "ja" ? "チェーンから出品を読み取っています…" : "Reading listings from the chain…";
+  try {
+    // NOTE: the marketplace contract exposes its listing view; once the real
+    // ABI is finalised, this call reads it via eth_call (read-only, no wallet).
+    // Until then the honest state is: no listings could be loaded.
+    await rpcCall(CFG.MARKET, "0x");
+    empty.style.display = "block";
+    note.textContent = LANG === "ja" ? "出品を読み取れませんでした — もう一度お試しください。" : "Could not load listings — please try again.";
+  } catch (e) {
+    empty.style.display = "block";
+    note.textContent = LANG === "ja" ? "出品を読み取れませんでした — RPCが応答しません。" : "Could not load listings — the public RPC did not answer.";
+  }
+}
+$("refreshBtn").addEventListener("click", loadListings);
+
+/* ---------- list / buy prompts ---------- */
+function renderPrompts() {
+  const listId = $("listTokenId").value.trim();
+  const listPrice = $("listPrice").value.trim();
+  const buyId = $("buyTokenId").value.trim();
+  const lc = listId ? charFor(Number(listId)) : null;
+  const bc = buyId ? charFor(Number(buyId)) : null;
+  $("listPromptText").textContent =
+    "PikaCHAN list — BNB Chain (chain ID 56)\n" +
+    "Marketplace contract: " + CFG.MARKET + " (TBD — not deployed yet; do NOT list until deployed)\n" +
+    "NFT contract: " + CFG.NFT + " (TBD)\n\n" +
+    "My wallet: <PASTE YOUR WALLET ADDRESS>\n" +
+    "Token ID to list: " + (listId || "<TOKEN ID>") + (lc ? " (" + lc.name + ", " + lc.tier + ")" : "") + "\n" +
+    "Price: " + (listPrice || "<PRICE>") + " BNB\n\n" +
+    "Steps:\n" +
+    "1. Confirm I own this token and it is not already listed.\n" +
+    "2. Call list(" + (listId || "<TOKEN ID>") + ", " + (listPrice || "<PRICE IN WEI>") + ") on the marketplace contract (listing fee 0.00025 BNB, planned).\n" +
+    "3. Report the transaction hash. On sale I receive 95% and 5% royalty goes to the creator wallet.\n" +
+    "Use the PikaCHAN agent skill (SKILL.md) for exact function signatures and safety checks.";
+  $("buyPromptText").textContent =
+    "PikaCHAN buy — BNB Chain (chain ID 56)\n" +
+    "Marketplace contract: " + CFG.MARKET + " (TBD — not deployed yet; do NOT buy until deployed)\n" +
+    "NFT contract: " + CFG.NFT + " (TBD)\n\n" +
+    "My wallet: <PASTE YOUR WALLET ADDRESS>\n" +
+    "Token ID to buy: " + (buyId || "<TOKEN ID>") + (bc ? " (" + bc.name + ", " + bc.tier + ")" : "") + "\n" +
+    "Price: <EXACT LISTING PRICE IN BNB — check the listing above>\n\n" +
+    "Steps:\n" +
+    "1. Read the listing for this token ID from the marketplace contract and confirm the exact price.\n" +
+    "2. Call buy(" + (buyId || "<TOKEN ID>") + ") and send exactly the listing price in BNB.\n" +
+    "3. Report the transaction hash. The companion transfers to me on payment; 95% goes to the seller, 5% royalty to the creator wallet.\n" +
+    "Use the PikaCHAN agent skill (SKILL.md) for exact function signatures and safety checks.";
+}
+["listTokenId", "listPrice", "buyTokenId"].forEach((id) => {
+  $(id).addEventListener("input", renderPrompts);
+});
+renderPrompts();
+
+async function copyText(text, btn) {
+  try { await navigator.clipboard.writeText(text); }
+  catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta);
+  }
+  const old = btn.textContent;
+  btn.textContent = LANG === "ja" ? "コピーしました ✓" : "Copied ✓";
+  setTimeout(() => { btn.textContent = old; }, 1600);
+}
+$("listPromptCopy").addEventListener("click", (ev) => copyText($("listPromptText").textContent, ev.currentTarget));
+$("buyPromptCopy").addEventListener("click", (ev) => copyText($("buyPromptText").textContent, ev.currentTarget));
+$("copyLinkBtn").addEventListener("click", (ev) => copyText(CFG.SITE_URL + "market.html", ev.currentTarget));
+
+loadListings();
+</script>
+</body>
+</html>

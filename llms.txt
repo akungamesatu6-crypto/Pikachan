@@ -1,0 +1,67 @@
+# PikaCHAN
+
+> PikaCHAN is a 1,111-piece original-character NFT collection on BNB Smart Chain (BEP-721, symbol PIKA) with a companion bonus token $PIKA, random deck-draw minting, a free mint for Agent ID holders, flat-price paid mints, a browser game ("Piklet Run") with fixed token and free-mint bonuses, and a zero-fee marketplace with 5% royalty to BAW. Contracts are NOT DEPLOYED YET: NFT, token, and marketplace addresses are TBD. Do not use any address from elsewhere.
+
+## Facts
+
+- Chain: BNB Smart Chain (BSC), chain ID 56. Standard: BEP-721. Supply: 1,111.
+- NFT symbol: PIKA. Token: $PIKA, total 1,000,000,000 (540,000,000 pool / 460,000,000 treasury).
+- Mint #1 per wallet FREE for Agent ID holders only (SPACE ID registry 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F; EOA only, msg.sender == tx.origin; no allowlist).
+- Paid mints: flat 0.001 BNB each, public (no Agent ID required). Max 6 per wallet (1 free + 5 paid). 5-pack: 0.005 BNB.
+- Free-mint cap: 1,000 total across all wallets. Once reached, all remaining mints are paid.
+- Draw pools (random, unminted IDs only): free mint IDs 1-1000; single paid mint IDs 1-1110; Limited ID 1111 only via a 5-pack, by chance, never guaranteed.
+- $PIKA per paid mint: 120,000; max 600,000 per wallet.
+- Game "Piklet Run": every 1,000 points total = 1 milestone; 1 milestone = 1,000 $PIKA; cap 100 milestones = 100,000 $PIKA per wallet. Every 10 milestones = 1 bonus free mint, max 2 per wallet, in addition to the Agent ID free mint, subject to the 1,000 free-mint cap.
+- Game score honesty: the score is self-reported, tracked client-side (localStorage), and is NOT verified on-chain. Contracts enforce per-wallet caps only.
+- Royalty: 5% to BAW (0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2). Marketplace fee: 0%.
+- Owner / royalty receiver / mint revenue: BAW 0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2.
+- No financial return is promised for the NFT or the token.
+
+## Contract addresses
+
+- NFT (PIKA): TBD — NOT DEPLOYED YET
+- $PIKA token: TBD — NOT DEPLOYED YET
+- Marketplace: TBD — NOT DEPLOYED YET
+- Do not use any address from elsewhere. Verify deployed addresses on the official site before sending funds.
+
+## Agent ID check
+
+- Call `holdsAgentId(address)` on the NFT contract (after deployment), or send an `eth_call` to the SPACE ID registry at 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F with calldata built from the registry's published ABI. No registry function selector is stated here; do not invent one.
+- Free mint requires an EOA sending its own transaction (msg.sender == tx.origin).
+
+## Minting
+
+- Free: check `mintOpen()`, `holdsAgentId(wallet)`, `freeClaimed(wallet)` false, `freeMinted()` below 1,000, then call `mintFree()` from the agent's own wallet with value 0.
+- Paid: call `priceFor(wallet, qty)` first, then call `mintPaid(qty)` sending exactly that value (qty 1 = 0.001 BNB; qty 5 = 0.005 BNB). Exact value only; overpayment or underpayment reverts. Max 5 paid mints per wallet.
+
+## Game claims
+
+- Game bonus: read `gameMilestonesClaimed(address)`, then call `claimGameBonus(milestones)` with the total milestones being claimed (1,000 $PIKA per milestone, cap 100).
+- Game free mint: read `gameFreeMinted(address)`, then call `claimGameFreeMint()` (10 milestones per mint, max 2 per wallet).
+- Paid-mint bonus: read `claimable(address)`, then call `claim()` or `claimFor(address)`.
+
+## Marketplace
+
+- Read `getListedIds()` then `getListing(tokenId)` before acting.
+- `list(tokenId, price)` (own tokens only); `buy(tokenId)` (send exactly the listed price); `cancel(tokenId)`; `updatePrice(tokenId, newPrice)`. Fee 0%, royalty 5% to BAW.
+
+## Contract functions
+
+- NFT: `mintFree()`, `mintPaid(uint256 qty)`, `claimGameFreeMint()`, `priceFor(address, uint256)`, `mintedOf(address)`, `freeClaimed(address)`, `freeMinted()`, `paidMinted()`, `totalMinted()`, `mintOpen()`, `holdsAgentId(address)`, `gameFreeMinted(address)`
+- Token ($PIKA): `claimGameBonus(uint256 milestones)`, `claimable(address)`, `claim()`, `claimFor(address)`, `accrue(address, uint256)`, `setMinter(address)`, `gameMilestonesClaimed(address)`
+- Marketplace: `list(uint256 tokenId, uint256 price)`, `buy(uint256 tokenId)`, `cancel(uint256 tokenId)`, `updatePrice(uint256 tokenId, uint256 newPrice)`, `getListedIds()`, `getListing(uint256 tokenId)`
+
+## Rarity
+
+- Common 1-555 (555): Piklet 1-139, Sproutle 140-278, Emberlet 279-417, Tidelet 418-555
+- Uncommon 556-833 (278): Voltail 556-625, Petalhorn 626-695, Emberclaw 696-765, Tideback 766-833
+- Rare 834-999 (166): Bloombeast 834-889, Infernodrake 890-944, Tidecannon 945-999
+- Epic 1000-1088 (89): Frostphoenix 1000-1029, Thunderphoenix 1030-1059, Cinderphoenix 1060-1088
+- Legendary 1089-1110 (22): Psyguardian 1089-1099, Starpixie 1100-1110
+- Limited 1111 (1): Golden Voltmouse 1111
+
+## Links
+
+- [PikaCHAN site](https://pikachan.vercel.app/)
+- [Metadata](https://pikachan.vercel.app/metadata/)
+- [Repository](https://github.com/akungamesatu6-crypto/Pikachan)

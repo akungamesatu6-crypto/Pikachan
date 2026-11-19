@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PikaCHAN — 1,111 Original Elemental Companions on BNB Chain</title>
+<meta name="description" content="PikaCHAN: 1,111 original elemental companions on BNB Chain. First mint free with an Agent ID, then 0.001 BNB. Play Piklet Run, earn $PIKA milestones.">
+<style>
+:root{
+  --bg:#070b1e; --bg2:#0b1130; --card:#101736; --card2:#141d42; --line:#232c5c;
+  --ink:#f4f6ff; --muted:#a7b0d6; --dim:#7d88b5;
+  --volt:#ffd400; --volt2:#ffe45c; --volt-dim:#8a7300;
+  --fire:#ff6b35; --water:#38bdf8; --plant:#4ade80; --ice:#a5f3fc;
+  --psychic:#c084fc; --cosmic:#f472b6; --gold:#fbbf24;
+  --ok:#4ade80; --bad:#f87171; --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;
+  background-image:radial-gradient(900px 480px at 85% -5%,rgba(255,212,0,.14),transparent 60%),radial-gradient(700px 420px at 0% 12%,rgba(56,189,248,.12),transparent 60%),radial-gradient(600px 500px at 50% 110%,rgba(74,222,128,.08),transparent 60%)}
+img{max-width:100%;display:block}
+a{color:var(--volt2)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px}
+h1,h2,h3{line-height:1.25}
+h2{font-size:clamp(22px,5.4vw,32px);margin-bottom:6px}
+h2 .kicker{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--volt);margin-bottom:6px}
+.lead{color:var(--muted);max-width:640px}
+section{padding:52px 0}
+.sec-head{margin-bottom:22px}
+.btn{display:inline-block;background:var(--volt);color:#191300;font-weight:800;border:0;border-radius:999px;padding:12px 22px;font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.btn:hover{background:var(--volt2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--volt)}
+.btn.small{padding:8px 14px;font-size:13.5px}
+.btn:disabled{background:#3a4266;color:#9aa3c7;cursor:not-allowed}
+.btn.block{width:100%}
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(7,11,30,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;padding:11px 16px;max-width:1060px;margin:0 auto}
+.logo{font-weight:900;font-size:19px;letter-spacing:.04em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.logo b{color:var(--volt)}
+.hd nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto}
+.hd nav a{color:var(--muted);text-decoration:none;font-size:13.5px;padding:7px 9px;border-radius:8px;white-space:nowrap}
+.hd nav a:hover{color:var(--ink);background:var(--card)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{background:transparent;color:var(--muted);border:0;padding:7px 11px;font-size:13px;font-weight:700;cursor:pointer}
+.lang button.on{background:var(--volt);color:#191300}
+/* preview banner */
+.preview{background:linear-gradient(90deg,#3a2b00,#571b00);border-bottom:1px solid #6b4d00;color:#ffe9a8;text-align:center;padding:10px 14px;font-size:13.5px}
+.preview b{color:#fff}
+/* hero */
+.hero{padding:44px 0 30px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+.hero h1{font-size:clamp(34px,8vw,58px);letter-spacing:-.01em}
+.hero h1 span{color:var(--volt)}
+.hero .tag{font-size:clamp(16px,3.6vw,21px);color:var(--muted);margin:12px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.chip b{color:var(--ink)}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.hero-art{position:relative}
+.hero-art .main{border-radius:22px;border:1px solid var(--line);aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,212,0,.12)}
+.hero-art .mini{position:absolute;left:-14px;bottom:-14px;width:38%;border-radius:16px;border:3px solid var(--bg);box-shadow:0 14px 34px rgba(0,0,0,.6);aspect-ratio:1/1;object-fit:cover}
+.hero-art .tag-limited{position:absolute;top:12px;right:12px;background:var(--gold);color:#241a00;font-weight:800;font-size:12px;padding:6px 11px;border-radius:999px}
+/* evolution chain — the live-status visual */
+.chain{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.chain h3{font-size:15px;margin-bottom:4px}
+.chain .sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.evo-line{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin-bottom:12px}
+.evo-node{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 6px;text-align:center}
+.evo-node img{width:52px;height:52px;object-fit:cover;border-radius:50%;margin:0 auto 5px;border:2px solid var(--line)}
+.evo-node b{display:block;font-size:12.5px;line-height:1.25}
+.evo-node span{font-size:11px;color:var(--dim)}
+.evo-node.el-electric{border-color:#6b5b00}.evo-node.el-electric img{border-color:var(--volt)}
+.evo-node.el-plant img{border-color:var(--plant)}
+.evo-node.el-fire img{border-color:var(--fire)}
+.evo-node.el-water img{border-color:var(--water)}
+.evo-arrow{color:var(--volt);font-weight:900;font-size:18px}
+.evo-line .evo-node:last-child{border-color:rgba(251,191,36,.55);background:linear-gradient(160deg,#2a2103,#141d42)}
+/* live status */
+.live-grid{display:grid;grid-template-columns:210px 1fr;gap:20px;align-items:start;margin-top:18px}
+.ring-card{background:var(--card2);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center}
+.ring-card svg{width:150px;height:150px}
+.ring-num{font-size:26px;font-weight:900}
+.ring-lbl{font-size:12.5px;color:var(--muted)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 8px}
+.stat b{display:block;font-size:17px}
+.stat span{font-size:11.5px;color:var(--muted)}
+.tierbars{margin-top:6px}
+.tb-row{display:grid;grid-template-columns:110px 1fr 74px;gap:10px;align-items:center;padding:5px 0;font-size:13px}
+.tb-track{height:9px;background:var(--bg2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.tb-fill{display:block;height:100%;border-radius:99px}
+.tb-num{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.live-note{font-size:12.5px;color:var(--dim);margin-top:10px}
+.mint-state{display:inline-block;margin-top:12px;padding:8px 13px;border-radius:10px;font-size:13.5px;font-weight:700;background:#3a2b00;color:#ffe9a8;border:1px solid #6b4d00}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--volt);color:#191300;font-weight:900;display:grid;place-items:center;margin-bottom:10px}
+.step h3{font-size:16px;margin-bottom:5px}
+.step p{font-size:13.5px;color:var(--muted)}
+/* game */
+.game-box{background:linear-gradient(180deg,#0d1538,#070b1e);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+#gameCanvas{width:100%;height:auto;border-radius:14px;background:linear-gradient(180deg,#0a1030 0%,#0a1030 68%,#12224d 68%,#0d1a3d 100%);border:1px solid var(--line);touch-action:manipulation;cursor:pointer}
+.game-hud{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
+.hud-pill{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13.5px}
+.hud-pill b{color:var(--volt)}
+.game-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.mile-bar{height:11px;background:var(--bg2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.mile-fill{display:block;height:100%;background:linear-gradient(90deg,var(--volt),#ffb700);width:0%}
+.mile-txt{font-size:13px;color:var(--muted);margin-top:6px}
+.honest{font-size:12.5px;color:var(--dim);border-left:3px solid var(--volt);padding:8px 12px;margin-top:14px;background:rgba(255,212,0,.05)}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);background:var(--volt);color:#191300;font-weight:800;padding:12px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:.3s;z-index:90;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:92vw;text-align:center;font-size:14px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* gallery */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filters button{background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px;cursor:pointer;font-weight:700}
+.filters button.on{background:var(--volt);color:#191300;border-color:var(--volt)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.card .cb{padding:12px 13px 14px}
+.badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-bottom:7px}
+.badge.common{background:#334155;color:#e2e8f0}.badge.uncommon{background:#14532d;color:#bbf7d0}
+.badge.rare{background:#1e3a8a;color:#bfdbfe}.badge.epic{background:#581c87;color:#e9d5ff}
+.badge.legendary{background:#7c2d12;color:#fed7aa}.badge.limited{background:#78350f;color:#fde68a}
+.card h3{font-size:16px}
+.card p{font-size:12.5px;color:var(--muted)}
+.card .ids{font-variant-numeric:tabular-nums;color:var(--dim)}
+.el-tag{font-size:11.5px;font-weight:800}
+.el-electric{color:var(--volt)}.el-fire{color:var(--fire)}.el-water{color:var(--water)}
+.el-plant{color:var(--plant)}.el-ice{color:var(--ice)}.el-psychic{color:var(--psychic)}.el-cosmic{color:var(--cosmic)}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border-radius:14px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--card2);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+/* special */
+.special{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:center;background:linear-gradient(140deg,#2a2103,#101736 55%);border:1px solid rgba(251,191,36,.4);border-radius:22px;padding:24px}
+.special img{border-radius:16px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.special h2{margin-bottom:8px}
+/* mint panel */
+.mint-panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.price-box{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.price-box b{display:block;font-size:22px;color:var(--volt)}
+.price-box span{font-size:12.5px;color:var(--muted)}
+.qty-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 4px}
+.qty-row button{background:var(--card2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 16px;font-size:14px;font-weight:700;cursor:pointer}
+.qty-row button.on{background:var(--volt);color:#191300;border-color:var(--volt)}
+.field{margin:16px 0}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:12px 14px;font-size:14px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.field input:focus{outline:2px solid var(--volt)}
+.result{margin-top:10px;padding:12px 14px;border-radius:12px;font-size:14px;display:none}
+.result.ok{display:block;background:#052e16;color:#bbf7d0;border:1px solid #166534}
+.result.no{display:block;background:#450a0a;color:#fecaca;border:1px solid #991b1b}
+.result.warn{display:block;background:#3a2b00;color:#ffe9a8;border:1px solid #6b4d00}
+.prompt-box{position:relative;background:#05081a;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.prompt-box pre{white-space:pre-wrap;word-break:break-word;font-size:12.5px;color:#dbe4ff;font-family:ui-monospace,Menlo,Consolas,monospace;max-height:300px;overflow:auto}
+.copy-btn{position:absolute;top:8px;right:8px}
+.skill-links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.steps-ol{margin:10px 0 4px 20px;color:var(--muted);font-size:14px}
+.steps-ol li{margin-bottom:6px}
+.steps-ol b{color:var(--ink)}
+/* token / market */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.info-card h3{margin-bottom:8px}
+.info-card p,.info-card li{font-size:14px;color:var(--muted)}
+.info-card ul{margin-left:20px}
+.info-card li{margin-bottom:5px}
+.info-card b{color:var(--ink)}
+.big-num{font-size:30px;font-weight:900;color:var(--volt)}
+/* faq */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700;font-size:15px}
+.faq p{font-size:14px;color:var(--muted);margin-top:8px}
+/* contracts */
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;word-break:break-all}
+/* footer */
+footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);font-size:13.5px}
+.share-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.55)}
+@media (max-width:820px){
+  .hero-grid,.special{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr 1fr}
+  .live-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .price-grid{grid-template-columns:1fr}
+  .hd nav a{display:none}
+  .evo-line{grid-template-columns:1fr auto 1fr auto 1fr}
+  .evo-node img{width:40px;height:40px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a class="logo" href="#top">⚡ <b>Pika</b>CHAN</a>
+    <nav>
+      <a href="#live" data-i18n="navLive">Live</a>
+      <a href="#game" data-i18n="navGame">Game</a>
+      <a href="#gallery" data-i18n="navGallery">Gallery</a>
+      <a href="#rarity" data-i18n="navRarity">Rarity</a>
+      <a href="#token" data-i18n="navToken">Token</a>
+      <a href="#market" data-i18n="navMarket">Market</a>
+      <a href="#faq" data-i18n="navFaq">FAQ</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="langEn" class="on" type="button">EN</button>
+      <button id="langJa" type="button">日本語</button>
+    </div>
+    <a class="btn small" href="#mint" data-i18n="navMint">Mint</a>
+  </div>
+</header>
+
+<div class="preview" id="top">⚠️ <b data-i18n="previewTitle">PREVIEW — contracts not deployed yet.</b> <span data-i18n="previewText">Mint is disabled until deployment. Contract addresses are TBD. Nothing here is live on-chain yet.</span></div>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Pika<span>CHAN</span><br><span data-i18n="heroSub">Four elements. One spark.</span></h1>
+      <p class="tag" data-i18n="heroTag">1,111 original elemental companions on BNB Chain — Electric, Fire, Water and Plant, rising from baby starters to final evolutions under a night sky.</p>
+      <div class="chips">
+        <span class="chip"><b>1,111</b> <span data-i18n="chipSupply">supply</span></span>
+        <span class="chip"><b>#1 FREE</b> <span data-i18n="chipFree">with Agent ID</span></span>
+        <span class="chip"><b>0.001 BNB</b> <span data-i18n="chipPaid">per paid mint</span></span>
+        <span class="chip"><b>17</b> <span data-i18n="chipChars">characters</span></span>
+        <span class="chip"><b>$PIKA</b> <span data-i18n="chipToken">120,000 / paid mint</span></span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn" href="#mint" data-i18n="heroMint">Mint — see how it works</a>
+        <a class="btn ghost" href="#game" data-i18n="heroGame">▶ Play Piklet Run</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img class="main" src="assets/golden-voltmouse.jpg" alt="Golden Voltmouse — the 1-of-1 Limited companion">
+      <span class="tag-limited">★ 1-of-1 Limited</span>
+      <img class="mini" src="assets/piklet.jpg" alt="Piklet — baby electric companion">
+    </div>
+  </div>
+</section>
+
+<section id="live">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="liveKicker">Live status</span><span data-i18n="liveTitle">The evolution chain, live</span></h2>
+      <p class="lead" data-i18n="liveLead">Every companion belongs to one of four evolution lines. As mints happen, the chain lights up — from baby starter, to stage one, to final form.</p>
+    </div>
+
+    <div class="chain">
+      <h3 data-i18n="chainTitle">⚡🔥💧🌱 Four lines, one night sky</h3>
+      <p class="sub" data-i18n="chainSub">Epic phoenixes and the two Legendary guardians stand alone — they have no baby form.</p>
+      <div class="evo-line">
+        <div class="evo-node el-electric"><img src="assets/piklet.jpg" alt="Piklet"><b>Piklet</b><span>Common · 1–139</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-electric"><img src="assets/voltail.jpg" alt="Voltail"><b>Voltail</b><span>Uncommon · 556–625</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-electric"><img src="assets/golden-voltmouse.jpg" alt="Golden Voltmouse"><b>Golden Voltmouse</b><span>Limited · 1111 ★</span></div>
+      </div>
+      <div class="evo-line">
+        <div class="evo-node el-plant"><img src="assets/sproutle.jpg" alt="Sproutle"><b>Sproutle</b><span>Common · 140–278</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-plant"><img src="assets/petalhorn.jpg" alt="Petalhorn"><b>Petalhorn</b><span>Uncommon · 626–695</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-plant"><img src="assets/bloombeast.jpg" alt="Bloombeast"><b>Bloombeast</b><span>Rare · 834–889</span></div>
+      </div>
+      <div class="evo-line">
+        <div class="evo-node el-fire"><img src="assets/emberlet.jpg" alt="Emberlet"><b>Emberlet</b><span>Common · 279–417</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-fire"><img src="assets/emberclaw.jpg" alt="Emberclaw"><b>Emberclaw</b><span>Uncommon · 696–765</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-fire"><img src="assets/infernodrake.jpg" alt="Infernodrake"><b>Infernodrake</b><span>Rare · 890–944</span></div>
+      </div>
+      <div class="evo-line">
+        <div class="evo-node el-water"><img src="assets/tidelet.jpg" alt="Tidelet"><b>Tidelet</b><span>Common · 418–555</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-water"><img src="assets/tideback.jpg" alt="Tideback"><b>Tideback</b><span>Uncommon · 766–833</span></div>
+        <span class="evo-arrow">→</span>
+        <div class="evo-node el-water"><img src="assets/tidecannon.jpg" alt="Tidecannon"><b>Tidecannon</b><span>Rare · 945–999</span></div>
+      </div>
+    </div>
+
+    <div class="live-grid">
+      <div class="ring-card">
+        <svg viewBox="0 0 120 120" aria-label="Mint progress ring">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="#232c5c" stroke-width="10"></circle>
+          <circle id="ringFill" cx="60" cy="60" r="54" fill="none" stroke="#ffd400" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"></circle>
+          <text x="60" y="57" text-anchor="middle" fill="#f4f6ff" font-size="20" font-weight="800" id="ringPct">0%</text>
+          <text x="60" y="74" text-anchor="middle" fill="#a7b0d6" font-size="9">MINTED</text>
+        </svg>
+        <div class="ring-num" id="statMinted">0 / 1,111</div>
+        <div class="ring-lbl" data-i18n="ringLbl">minted of 1,111 total supply</div>
+        <div class="stat-row">
+          <div class="stat"><b id="statFree">0</b><span data-i18n="statFree">free minted</span></div>
+          <div class="stat"><b id="statPaid">0</b><span data-i18n="statPaid">paid minted</span></div>
+          <div class="stat"><b id="statState">Preview</b><span data-i18n="statState">mint state</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="tierbars" id="tierBars"></div>
+        <p class="live-note" id="liveNote" data-i18n="liveNote">Planned values — contracts are not deployed yet, so the honest starting point is 0 / 1,111. Once deployed, these numbers are read live from the contract through a public BSC RPC (no wallet needed) and refresh automatically.</p>
+        <span class="mint-state" id="mintState" data-i18n="mintState">Mint is not open yet — contracts not deployed. First mint per wallet will be free with an Agent ID, then 0.001 BNB each.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="howKicker">How it works</span><span data-i18n="howTitle">Four steps to your companion</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3 data-i18n="step1t">Check your Agent ID</h3><p data-i18n="step1p">Paste your wallet address in the mint panel. The page reads the SPACE ID Agent ID registry through a public BSC RPC — no wallet needed — and tells you YES or NO.</p></div>
+      <div class="step"><div class="n">2</div><h3 data-i18n="step2t">Copy the agent prompt</h3><p data-i18n="step2p">Copy the ready-made prompt and paste it into your Binance Agentic Wallet / AI agent. The agent calls the contract directly for you.</p></div>
+      <div class="step"><div class="n">3</div><h3 data-i18n="step3t">Mint — random draw</h3><p data-i18n="step3p">Mint #1 is FREE with an Agent ID. Paid mints are 0.001 BNB flat, max 6 per wallet. Every mint is a random draw — free draws come from IDs 1–1000, paid draws from IDs 1–1110.</p></div>
+      <div class="step"><div class="n">4</div><h3 data-i18n="step4t">Play &amp; earn $PIKA</h3><p data-i18n="step4p">Play Piklet Run below. Every 1,000 total points is a milestone worth 1,000 $PIKA, and every 10 milestones earns a bonus free mint (max 2 per wallet).</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="game">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="gameKicker">Play to earn milestones</span><span data-i18n="gameTitle">⚡ Piklet Run</span></h2>
+      <p class="lead" data-i18n="gameLead">Piklet runs on its own. Jump over storm clouds, grab Volt Orbs (+25 points). 3 lives — the run gets faster as your score climbs.</p>
+    </div>
+    <div class="game-box">
+      <canvas id="gameCanvas" width="720" height="240" aria-label="Piklet Run game canvas"></canvas>
+      <div class="game-hud">
+        <span class="hud-pill"><span data-i18n="hudScore">Score</span>: <b id="hudScore">0</b></span>
+        <span class="hud-pill"><span data-i18n="hudTotal">Total points</span>: <b id="hudTotal">0</b></span>
+        <span class="hud-pill"><span data-i18n="hudLives">Lives</span>: <b id="hudLives">♥♥♥</b></span>
+        <span class="hud-pill"><span data-i18n="hudMile">Milestones</span>: <b id="hudMile">0</b> · <span id="hudMilePika">0 $PIKA</span></span>
+        <span class="hud-pill"><span data-i18n="hudBonus">Bonus free mints</span>: <b id="hudBonus">0 / 2</b></span>
+      </div>
+      <div class="game-btns">
+        <button class="btn" id="gameStart" type="button" data-i18n="gameStart">▶ Start run</button>
+        <button class="btn ghost" id="gameReset" type="button" data-i18n="gameReset">Reset run</button>
+        <button class="btn ghost" id="gameClaimBtn" type="button" data-i18n="gameClaim">Claim via Agent Skill</button>
+      </div>
+      <p class="mile-txt" id="mileTxt">0 / 1,000 points to the next milestone.</p>
+      <div class="mile-bar"><span class="mile-fill" id="mileFill"></span></div>
+      <div class="prompt-box" id="gamePromptBox" style="display:none">
+        <button class="btn small copy-btn" id="gamePromptCopy" type="button" data-i18n="copyBtn">Copy</button>
+        <pre id="gamePromptText"></pre>
+      </div>
+      <p class="honest" data-i18n="gameHonest">Honest note: game scores are self-reported and stored only in this browser (localStorage). The contract does NOT verify your score on-chain — there is no backend signer. The contract only enforces the per-wallet caps: at most 100,000 $PIKA from game milestones (100 milestones) and at most 2 bonus free mints per wallet. Claiming is done through the agent skill, which calls claimGameBonus() / claimGameFreeMint().</p>
+      <p class="honest" data-i18n="gameKeys">Controls: Space to jump — or click / tap the game. One jump per press; hold nothing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="galKicker">The collection</span><span data-i18n="galTitle">All 17 companions</span></h2>
+      <p class="lead" data-i18n="galLead">Filter by tier or by element. Every character is original artwork made for PikaCHAN.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all" type="button" data-i18n="fAll">All 17</button>
+      <button data-f="Common" type="button">Common</button>
+      <button data-f="Uncommon" type="button">Uncommon</button>
+      <button data-f="Rare" type="button">Rare</button>
+      <button data-f="Epic" type="button">Epic</button>
+      <button data-f="Legendary" type="button">Legendary</button>
+      <button data-f="Limited" type="button">Limited</button>
+    </div>
+    <div class="filters" id="elFilters">
+      <button class="on" data-e="all" type="button" data-i18n="fElAll">All elements</button>
+      <button data-e="Electric" type="button">⚡ Electric</button>
+      <button data-e="Fire" type="button">🔥 Fire</button>
+      <button data-e="Water" type="button">💧 Water</button>
+      <button data-e="Plant" type="button">🌱 Plant</button>
+      <button data-e="Ice" type="button">❄️ Ice</button>
+      <button data-e="Psychic" type="button">🔮 Psychic</button>
+      <button data-e="Cosmic" type="button">🌟 Cosmic</button>
+    </div>
+    <div class="grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section id="rarity">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="rarKicker">Rarity</span><span data-i18n="rarTitle">Full ID table — nothing hidden</span></h2>
+      <p class="lead" data-i18n="rarLead">Mints are random draws (swap-and-pop style). Free mints draw only from IDs 1–1000. Paid mints draw from IDs 1–1110. ID 1111 can only appear in a 5-pack draw — a chance, never a guarantee.</p>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th data-i18n="thChar">Character</th><th data-i18n="thTier">Tier</th><th data-i18n="thEl">Element</th><th data-i18n="thIds">Token IDs</th><th data-i18n="thCount">Count</th><th data-i18n="thShare">Share</th></tr></thead>
+        <tbody id="rarityBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="special">
+  <div class="wrap">
+    <div class="special">
+      <img src="assets/golden-voltmouse.jpg" alt="Golden Voltmouse — 1-of-1 Limited">
+      <div>
+        <h2><span class="kicker" data-i18n="spKicker">Special · Mystery</span><span data-i18n="spTitle">Golden Voltmouse — 1-of-1</span></h2>
+        <p class="lead" data-i18n="spLead">Token ID 1111. The only Limited companion in the collection. It is never in a single-mint draw — free or paid. The only way to pull it is a 5-pack mint (0.005 BNB), where ID 1111 joins the eligible pool for that draw. One wallet, one golden mouse, ever.</p>
+        <p class="lead" style="margin-top:10px" data-i18n="spNote">When the pool is nearly full, the chance per pack is small — that is the point. No one can buy it directly, and no one is promised it.</p>
+        <div class="hero-cta" style="margin-top:16px"><a class="btn" href="#mint" data-i18n="spCta">See the 5-pack</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mint">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="mintKicker">Mint panel</span><span data-i18n="mintTitle">Mint with your agent — no wallet pop-ups here</span></h2>
+      <p class="lead" data-i18n="mintLead">This page never asks for a wallet connection. Check your Agent ID, copy the prompt, and let your AI agent call the contract for you.</p>
+    </div>
+    <div class="mint-panel">
+      <span class="mint-state" data-i18n="mintDisabled">⛔ Mint disabled — PREVIEW. Contracts are not deployed yet. The button below stays off until deployment.</span>
+      <div class="price-grid">
+        <div class="price-box"><b>FREE</b><span data-i18n="priceFree">Mint #1 · Agent ID only · max 1,000 free total</span></div>
+        <div class="price-box"><b>0.001 BNB</b><span data-i18n="pricePaid">Each paid mint · max 5 paid / wallet</span></div>
+        <div class="price-box"><b>0.005 BNB</b><span data-i18n="pricePack">5-pack · includes a chance at ID 1111</span></div>
+      </div>
+
+      <div class="qty-row">
+        <span style="font-weight:700;font-size:14px" data-i18n="qtyLbl">Quantity:</span>
+        <button id="qty1" class="on" type="button">1</button>
+        <button id="qty5" type="button">5-pack</button>
+        <span id="pricePreview" style="font-size:14px;color:var(--muted)">FREE — first mint with an Agent ID</span>
+      </div>
+
+      <div class="field">
+        <label for="agentAddr" data-i18n="agentLbl">① Agent ID checker — paste your wallet address</label>
+        <input id="agentAddr" type="text" placeholder="0x…" autocomplete="off" spellcheck="false">
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn small" id="agentCheckBtn" type="button" data-i18n="agentCheck">Check Agent ID</button>
+          <span style="font-size:12.5px;color:var(--dim);align-self:center" data-i18n="agentNote">Reads the SPACE ID registry (0x60B9…022F) through a public BSC RPC. Your address never leaves this page except as an RPC read.</span>
+        </div>
+        <div class="result" id="agentResult" role="status"></div>
+      </div>
+
+      <div class="field">
+        <label data-i18n="promptLbl">② Copy the agent prompt — paste it into your Binance Agentic Wallet / AI agent</label>
+        <div class="prompt-box">
+          <button class="btn small copy-btn" id="mintPromptCopy" type="button" data-i18n="copyBtn">Copy</button>
+          <pre id="mintPromptText"></pre>
+        </div>
+      </div>
+
+      <div class="field">
+        <label data-i18n="skillLbl">③ Mint via the agent skill</label>
+        <div class="skill-links">
+          <a class="btn small ghost" href="SKILL.md" target="_blank" rel="noopener">📄 Agent Skill (SKILL.md)</a>
+          <a class="btn small ghost" href="llms.txt" target="_blank" rel="noopener">📄 llms.txt</a>
+        </div>
+        <ol class="steps-ol">
+          <li data-i18n="skillS1"><b>Give your agent the skill</b> (SKILL.md) and the prompt above.</li>
+          <li data-i18n="skillS2"><b>Free mint:</b> the agent calls <span class="mono">mintFree()</span> on the NFT contract — only if your Agent ID check passed and free mints remain (cap 1,000).</li>
+          <li data-i18n="skillS3"><b>Paid mint:</b> the agent calls <span class="mono">mintPaid(qty)</span> with 0.001 BNB per mint (qty 1–5, or 5 for the pack at 0.005 BNB).</li>
+          <li data-i18n="skillS4"><b>Game bonus free mint:</b> the agent calls <span class="mono">claimGameFreeMint()</span> — only after 10 game milestones, max 2 per wallet, still inside the 1,000 free cap.</li>
+          <li data-i18n="skillS5"><b>Claim $PIKA:</b> the agent calls <span class="mono">claimGameBonus(milestones)</span> for game milestones, or <span class="mono">claim()</span> for the per-paid-mint bonus.</li>
+        </ol>
+      </div>
+
+      <button class="btn block" id="mintBtn" type="button" disabled data-i18n="mintBtn">Mint — disabled until contracts deploy</button>
+      <p class="live-note" data-i18n="mintBtnNote">This button scrolls here from anywhere on the page. It will only become active after deployment, and minting itself always runs through your agent — never through a pop-up on this page.</p>
+    </div>
+  </div>
+</section>
+
+<section id="token">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="tokKicker">Token</span><span data-i18n="tokTitle">$PIKA — the spark token</span></h2>
+    </div>
+    <div class="two-col">
+      <div class="info-card">
+        <div class="big-num">1,000,000,000</div>
+        <p><b data-i18n="tokTotal">Total supply: 1,000,000,000 $PIKA</b></p>
+        <ul style="margin-top:10px">
+          <li><b>540,000,000</b> <span data-i18n="tokPool">— mint reward pool</span></li>
+          <li><b>460,000,000</b> <span data-i18n="tokTreas">— treasury</span></li>
+          <li><b>120,000 $PIKA</b> <span data-i18n="tokPer">per paid mint — claim with <span class="mono">claim()</span></span></li>
+          <li><b>600,000 $PIKA</b> <span data-i18n="tokCap">max per wallet from paid mints (5 × 120,000)</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="tokGameT">Game milestones pay $PIKA too</h3>
+        <p data-i18n="tokGameP">Every 1,000 total points in Piklet Run is 1 milestone = <b>1,000 $PIKA</b>, claimed through the agent skill with <span class="mono">claimGameBonus(milestones)</span>. Cap: <b>100,000 $PIKA per wallet</b> from the game (100 milestones). Every 10 milestones also earns 1 bonus free mint (max 2 per wallet).</p>
+        <p style="margin-top:10px" data-i18n="tokGameN">Scores are self-reported from this browser; the contract enforces only the per-wallet caps. It does not verify scores on-chain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="market">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="mktKicker">Marketplace</span><span data-i18n="mktTitle">Trade your companions</span></h2>
+      <p class="lead" data-i18n="mktLead">Listings live on the project's own marketplace contract: seller keeps 95%, 5% royalty goes to the creator wallet. Browse listings on the market page — read-only, no wallet needed.</p>
+    </div>
+    <div class="two-col">
+      <div class="info-card">
+        <h3 data-i18n="mktFeesT">Fees</h3>
+        <ul>
+          <li><b>95%</b> <span data-i18n="mktSeller">to the seller on every sale</span></li>
+          <li><b>5%</b> <span data-i18n="mktRoy">royalty to the creator wallet (BAW)</span></li>
+          <li><b>0.00025 BNB</b> <span data-i18n="mktList">listing fee (planned)</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="mktHowT">How to list / buy</h3>
+        <p data-i18n="mktHowP">Through your agent: <span class="mono">list(tokenId, price)</span> to list, <span class="mono">buy(tokenId)</span> to buy at the exact listing price. Full instructions and prompts are on the market page.</p>
+        <div style="margin-top:14px"><a class="btn" href="market.html" data-i18n="mktOpen">Open the marketplace →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="faqKicker">FAQ</span><span data-i18n="faqTitle">Questions, answered plainly</span></h2>
+    </div>
+    <details><summary data-i18n="faq1q">When does mint open?</summary><p data-i18n="faq1a">Not yet — the contracts are not deployed. This page is a preview. The mint-open time will be announced in UTC when deployment is confirmed, and this page will switch from PREVIEW to live.</p></details>
+    <details><summary data-i18n="faq2q">How much does it cost?</summary><p data-i18n="faq2a">Mint #1 is FREE if you hold a SPACE ID Agent ID. Paid mints are 0.001 BNB flat. Max 6 per wallet (1 free + 5 paid). A 5-pack costs 0.005 BNB. The free mint is capped at 1,000 total across all wallets — after that, every mint is paid.</p></details>
+    <details><summary data-i18n="faq3q">How do I mint without connecting a wallet here?</summary><p data-i18n="faq3a">You don't mint on this page at all. Copy the agent prompt from the mint panel, paste it into your Binance Agentic Wallet / AI agent together with the skill (SKILL.md), and the agent calls mintFree() or mintPaid(qty) on the contract for you.</p></details>
+    <details><summary data-i18n="faq4q">What can I pull from a free mint?</summary><p data-i18n="faq4a">Free mints draw only from token IDs 1–1000 (Common through Epic). Paid mints draw from IDs 1–1110 (up to Legendary). ID 1111, the Golden Voltmouse, only appears in 5-pack draws.</p></details>
+    <details><summary data-i18n="faq5q">How do game milestones work?</summary><p data-i18n="faq5a">Play Piklet Run on this page. Every 1,000 total points = 1 milestone = 1,000 $PIKA (claim via the agent skill, cap 100,000 $PIKA per wallet). Every 10 milestones = 1 bonus free mint, max 2 per wallet, still inside the 1,000 free cap. Scores are stored in your browser and self-reported — the contract enforces only the caps, it does not verify scores on-chain.</p></details>
+    <details><summary data-i18n="faq6q">What is $PIKA?</summary><p data-i18n="faq6a">The collection's reward token: 1,000,000,000 total (540M pool / 460M treasury). 120,000 $PIKA per paid mint, max 600,000 per wallet. It is a reward token, not an investment — no return is promised.</p></details>
+    <details><summary data-i18n="faq7q">What are the marketplace fees?</summary><p data-i18n="faq7a">Seller keeps 95%, 5% royalty goes to the creator wallet. Listing is done through your agent with list(tokenId, price); buying with buy(tokenId) at the exact listing price.</p></details>
+    <details><summary data-i18n="faq8q">Are the characters original?</summary><p data-i18n="faq8a">Yes. All 17 characters — Piklet, Sproutle, Emberlet, Tidelet, Voltail, Petalhorn, Emberclaw, Tideback, Bloombeast, Infernodrake, Tidecannon, Frostphoenix, Thunderphoenix, Cinderphoenix, Psyguardian, Starpixie and Golden Voltmouse — are original artwork created for PikaCHAN.</p></details>
+  </div>
+</section>
+
+<section id="details">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="kicker" data-i18n="detKicker">Details</span><span data-i18n="detTitle">Contracts &amp; facts</span></h2>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tbody>
+          <tr><td><b>Chain</b></td><td>BNB Chain (chain ID 56)</td></tr>
+          <tr><td><b>NFT contract</b></td><td class="mono">TBD — 0x0000000000000000000000000000000000000000 (not deployed)</td></tr>
+          <tr><td><b>$PIKA token</b></td><td class="mono">TBD — 0x0000000000000000000000000000000000000000 (not deployed)</td></tr>
+          <tr><td><b>Marketplace</b></td><td class="mono">TBD — 0x0000000000000000000000000000000000000000 (not deployed)</td></tr>
+          <tr><td><b>NFT symbol</b></td><td>PIKA</td></tr>
+          <tr><td><b>Supply</b></td><td>1,111 · max 6 / wallet (1 free + 5 paid) · free cap 1,000 total</td></tr>
+          <tr><td><b>Royalty</b></td><td>5% → <span class="mono">0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2</span> (BAW)</td></tr>
+          <tr><td><b>Metadata baseURI</b></td><td class="mono">https://pikachan.vercel.app/metadata/</td></tr>
+          <tr><td><b>Site</b></td><td class="mono">https://pikachan.vercel.app/</td></tr>
+          <tr><td><b>Official X</b></td><td>To be announced</td></tr>
+          <tr><td><b>Times</b></td><td>All times on this page are UTC.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b style="font-size:17px;color:var(--ink)">⚡ PikaCHAN</b><br><span data-i18n="footTag">Four elements. One spark.</span></p>
+    <div class="share-row">
+      <a class="btn small ghost" id="shareX" href="#" target="_blank" rel="noopener">Share on X</a>
+      <button class="btn small ghost" id="copyLinkBtn" type="button" data-i18n="copyLink">Copy page link</button>
+    </div>
+    <p><span data-i18n="footX">Official X: to be announced.</span><br>© 2026 PikaCHAN. All artwork is original. Nothing here is financial advice, and no return is promised. All times UTC.</p>
+  </div>
+</footer>
+
+<a class="btn fab" href="#mint" data-i18n="fabMint">⚡ Mint</a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* PikaCHAN — preview page. Contracts NOT deployed: all addresses are the
+   zero address (TBD). Live counts read from the chain only after deploy. */
+const CFG = {
+  NFT: "0x0000000000000000000000000000000000000000",
+  TOKEN: "0x0000000000000000000000000000000000000000",
+  MARKET: "0x0000000000000000000000000000000000000000",
+  AGENT_REGISTRY: "0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F",
+  OWNER: "0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2",
+  BASE_URI: "https://pikachan.vercel.app/metadata/",
+  SITE_URL: "https://pikachan.vercel.app/",
+  MAX_SUPPLY: 1111, MAX_PER_WALLET: 6, FREE_CAP: 1000,
+  PRICE_WEI: 1000000000000000n, PACK_PRICE_WEI: 5000000000000000n,
+  BONUS_PER_PAID: 120000
+};
+const DEPLOYED = CFG.NFT !== "0x0000000000000000000000000000000000000000";
+const RPCS = [
+  "https://bsc-dataseed1.defibit.io",
+  "https://bsc-rpc.publicnode.com",
+  "https://bsc-dataseed3.bnbchain.org",
+  "https://1rpc.io/bnb"
+];
+const SEL = {
+  totalMinted: "0xa2309ff8", freeMinted: "0xd10a1a2b", paidMinted: "0x2806b8fb",
+  mintOpen: "0x24bbd049", balanceOf: "0x70a08231"
+};
+const CHARS = [
+  { name: "Piklet", slug: "piklet", tier: "Common", el: "Electric", ids: "1 – 139", count: 139, start: 1 },
+  { name: "Sproutle", slug: "sproutle", tier: "Common", el: "Plant", ids: "140 – 278", count: 139, start: 140 },
+  { name: "Emberlet", slug: "emberlet", tier: "Common", el: "Fire", ids: "279 – 417", count: 139, start: 279 },
+  { name: "Tidelet", slug: "tidelet", tier: "Common", el: "Water", ids: "418 – 555", count: 138, start: 418 },
+  { name: "Voltail", slug: "voltail", tier: "Uncommon", el: "Electric", ids: "556 – 625", count: 70, start: 556 },
+  { name: "Petalhorn", slug: "petalhorn", tier: "Uncommon", el: "Plant", ids: "626 – 695", count: 70, start: 626 },
+  { name: "Emberclaw", slug: "emberclaw", tier: "Uncommon", el: "Fire", ids: "696 – 765", count: 70, start: 696 },
+  { name: "Tideback", slug: "tideback", tier: "Uncommon", el: "Water", ids: "766 – 833", count: 68, start: 766 },
+  { name: "Bloombeast", slug: "bloombeast", tier: "Rare", el: "Plant", ids: "834 – 889", count: 56, start: 834 },
+  { name: "Infernodrake", slug: "infernodrake", tier: "Rare", el: "Fire", ids: "890 – 944", count: 55, start: 890 },
+  { name: "Tidecannon", slug: "tidecannon", tier: "Rare", el: "Water", ids: "945 – 999", count: 55, start: 945 },
+  { name: "Frostphoenix", slug: "frostphoenix", tier: "Epic", el: "Ice", ids: "1000 – 1029", count: 30, start: 1000 },
+  { name: "Thunderphoenix", slug: "thunderphoenix", tier: "Epic", el: "Electric", ids: "1030 – 1059", count: 30, start: 1030 },
+  { name: "Cinderphoenix", slug: "cinderphoenix", tier: "Epic", el: "Fire", ids: "1060 – 1088", count: 29, start: 1060 },
+  { name: "Psyguardian", slug: "psyguardian", tier: "Legendary", el: "Psychic", ids: "1089 – 1099", count: 11, start: 1089 },
+  { name: "Starpixie", slug: "starpixie", tier: "Legendary", el: "Cosmic", ids: "1100 – 1110", count: 11, start: 1100 },
+  { name: "Golden Voltmouse", slug: "golden-voltmouse", tier: "Limited", el: "Electric", ids: "1111", count: 1, start: 1111 }
+];
+const TIERS = [
+  { name: "Common", total: 555, start: 1, color: "#94a3b8" },
+  { name: "Uncommon", total: 278, start: 556, color: "#4ade80" },
+  { name: "Rare", total: 166, start: 834, color: "#38bdf8" },
+  { name: "Epic", total: 89, start: 1000, color: "#c084fc" },
+  { name: "Legendary", total: 22, start: 1089, color: "#fb923c" },
+  { name: "Limited", total: 1, start: 1111, color: "#fbbf24" }
+];
+const $ = (id) => document.getElementById(id);
+const EL_ICON = { Electric: "⚡", Fire: "🔥", Water: "💧", Plant: "🌱", Ice: "❄️", Psychic: "🔮", Cosmic: "🌟" };
+
+/* ---------- i18n (EN / JA) ---------- */
+let LANG = "en";
+const I18N = {
+  navLive: { en: "Live", ja: "ライブ" }, navGame: { en: "Game", ja: "ゲーム" },
+  navGallery: { en: "Gallery", ja: "ギャラリー" }, navRarity: { en: "Rarity", ja: "レアリティ" },
+  navToken: { en: "Token", ja: "トークン" }, navMarket: { en: "Market", ja: "マーケット" },
+  navFaq: { en: "FAQ", ja: "FAQ" }, navMint: { en: "Mint", ja: "ミント" },
+  previewTitle: { en: "PREVIEW — contracts not deployed yet.", ja: "プレビュー — コントラクトはまだデプロイされていません。" },
+  previewText: { en: "Mint is disabled until deployment. Contract addresses are TBD. Nothing here is live on-chain yet.", ja: "デプロイまでミントは無効です。コントラクトアドレスは未定です。まだ何もオンチェーンでは公開されていません。" },
+  heroSub: { en: "Four elements. One spark.", ja: "四つの元素。ひとつの火花。" },
+  heroTag: { en: "1,111 original elemental companions on BNB Chain — Electric, Fire, Water and Plant, rising from baby starters to final evolutions under a night sky.", ja: "BNBチェーン上のオリジナル仲間1,111体 — 電気・火・水・植物。夜空の下、ベビーから最終進化へ。" },
+  chipSupply: { en: "supply", ja: "供給" }, chipFree: { en: "with Agent ID", ja: "Agent IDで無料" },
+  chipPaid: { en: "per paid mint", ja: "有料ミント毎" }, chipChars: { en: "characters", ja: "キャラクター" },
+  chipToken: { en: "120,000 / paid mint", ja: "有料ミント毎120,000" },
+  heroMint: { en: "Mint — see how it works", ja: "ミント — 方法を見る" },
+  heroGame: { en: "▶ Play Piklet Run", ja: "▶ ピクレットランで遊ぶ" },
+  liveKicker: { en: "Live status", ja: "ライブ状況" },
+  liveTitle: { en: "The evolution chain, live", ja: "進化チェーン、ライブ" },
+  liveLead: { en: "Every companion belongs to one of four evolution lines. As mints happen, the chain lights up — from baby starter, to stage one, to final form.", ja: "すべての仲間は4つの進化ラインのいずれかに属します。ミントが進むとチェーンが光ります。" },
+  chainTitle: { en: "⚡🔥💧🌱 Four lines, one night sky", ja: "⚡🔥💧🌱 4つのライン、ひとつの夜空" },
+  chainSub: { en: "Epic phoenixes and the two Legendary guardians stand alone — they have no baby form.", ja: "エピックのフェニックスと2体のレジェンダリーは単独です — ベビー形態はありません。" },
+  ringLbl: { en: "minted of 1,111 total supply", ja: "総供給1,111体中のミント数" },
+  statFree: { en: "free minted", ja: "無料ミント" }, statPaid: { en: "paid minted", ja: "有料ミント" },
+  statState: { en: "mint state", ja: "ミント状態" },
+  liveNote: { en: "Planned values — contracts are not deployed yet, so the honest starting point is 0 / 1,111. Once deployed, these numbers are read live from the contract through a public BSC RPC (no wallet needed) and refresh automatically.", ja: "予定値 — コントラクトは未デプロイのため、正直な開始点は0 / 1,111です。デプロイ後は公開BSC RPCからライブで読み取ります。" },
+  mintState: { en: "Mint is not open yet — contracts not deployed. First mint per wallet will be free with an Agent ID, then 0.001 BNB each.", ja: "ミントはまだ開始していません — コントラクト未デプロイです。ウォレット毎の初回はAgent IDで無料、その後は0.001 BNBです。" },
+  howKicker: { en: "How it works", ja: "仕組み" },
+  howTitle: { en: "Four steps to your companion", ja: "仲間を迎える4ステップ" },
+  step1t: { en: "Check your Agent ID", ja: "Agent IDを確認" },
+  step1p: { en: "Paste your wallet address in the mint panel. The page reads the SPACE ID Agent ID registry through a public BSC RPC — no wallet needed — and tells you YES or NO.", ja: "ミントパネルにウォレットアドレスを貼り付けます。公開BSC RPCでSPACE IDレジストリを読み取り、YESかNOを表示します。" },
+  step2t: { en: "Copy the agent prompt", ja: "エージェント用プロンプトをコピー" },
+  step2p: { en: "Copy the ready-made prompt and paste it into your Binance Agentic Wallet / AI agent. The agent calls the contract directly for you.", ja: "用意されたプロンプトをコピーし、Binance Agentic Wallet / AIエージェントに貼ります。エージェントが直接コントラクトを呼びます。" },
+  step3t: { en: "Mint — random draw", ja: "ミント — ランダム抽選" },
+  step3p: { en: "Mint #1 is FREE with an Agent ID. Paid mints are 0.001 BNB flat, max 6 per wallet. Every mint is a random draw — free draws come from IDs 1–1000, paid draws from IDs 1–1110.", ja: "ミント#1はAgent IDで無料。有料ミントは一律0.001 BNB、ウォレット毎最大6体。すべてランダム抽選 — 無料はID 1–1000、有料はID 1–1110から。" },
+  step4t: { en: "Play & earn $PIKA", ja: "遊んで$PIKAを獲得" },
+  step4p: { en: "Play Piklet Run below. Every 1,000 total points is a milestone worth 1,000 $PIKA, and every 10 milestones earns a bonus free mint (max 2 per wallet).", ja: "下のピクレットランで遊びましょう。合計1,000ポイント毎にマイルストーン1つ＝1,000 $PIKA。10マイルストーン毎にボーナス無料ミント1回（最大2回）。" },
+  gameKicker: { en: "Play to earn milestones", ja: "遊んでマイルストーンを獲得" },
+  gameTitle: { en: "⚡ Piklet Run", ja: "⚡ ピクレットラン" },
+  gameLead: { en: "Piklet runs on its own. Jump over storm clouds, grab Volt Orbs (+25 points). 3 lives — the run gets faster as your score climbs.", ja: "ピクレットは自動で走ります。嵐の雲をジャンプで避け、ボルトオーブを集めましょう（+25ポイント）。ライフ3つ — スコアが上がると速くなります。" },
+  hudScore: { en: "Score", ja: "スコア" }, hudTotal: { en: "Total points", ja: "合計ポイント" },
+  hudLives: { en: "Lives", ja: "ライフ" }, hudMile: { en: "Milestones", ja: "マイルストーン" },
+  hudBonus: { en: "Bonus free mints", ja: "ボーナス無料ミント" },
+  gameStart: { en: "▶ Start run", ja: "▶ スタート" }, gameReset: { en: "Reset run", ja: "リセット" },
+  gameClaim: { en: "Claim via Agent Skill", ja: "エージェントスキルで請求" },
+  gameHonest: { en: "Honest note: game scores are self-reported and stored only in this browser (localStorage). The contract does NOT verify your score on-chain — there is no backend signer. The contract only enforces the per-wallet caps: at most 100,000 $PIKA from game milestones (100 milestones) and at most 2 bonus free mints per wallet. Claiming is done through the agent skill, which calls claimGameBonus() / claimGameFreeMint().", ja: "正直な注意：ゲームスコアは自己申告で、このブラウザ（localStorage）にのみ保存されます。コントラクトはスコアをオンチェーンで検証しません — バックエンド署名者はいません。コントラクトはウォレット毎の上限のみを強制します：ゲームから最大100,000 $PIKA（100マイルストーン）、ボーナス無料ミント最大2回。請求はエージェントスキル経由で、claimGameBonus() / claimGameFreeMint() を呼びます。" },
+  gameKeys: { en: "Controls: Space to jump — or click / tap the game. One jump per press; hold nothing.", ja: "操作：スペースキーでジャンプ — またはゲームをクリック／タップ。1回押すごとに1回ジャンプ。" },
+  galKicker: { en: "The collection", ja: "コレクション" },
+  galTitle: { en: "All 17 companions", ja: "17体の仲間すべて" },
+  galLead: { en: "Filter by tier or by element. Every character is original artwork made for PikaCHAN.", ja: "ティアや元素で絞り込めます。すべてのキャラクターはPikaCHANのためのオリジナルアートです。" },
+  fAll: { en: "All 17", ja: "すべて17体" }, fElAll: { en: "All elements", ja: "すべての元素" },
+  rarKicker: { en: "Rarity", ja: "レアリティ" },
+  rarTitle: { en: "Full ID table — nothing hidden", ja: "完全ID表 — 隠し事なし" },
+  rarLead: { en: "Mints are random draws (swap-and-pop style). Free mints draw only from IDs 1–1000. Paid mints draw from IDs 1–1110. ID 1111 can only appear in a 5-pack draw — a chance, never a guarantee.", ja: "ミントはランダム抽選です。無料ミントはID 1–1000からのみ。有料ミントはID 1–1110から。ID 1111は5パックでのみ出現します — チャンスであり、保証ではありません。" },
+  thChar: { en: "Character", ja: "キャラクター" }, thTier: { en: "Tier", ja: "ティア" },
+  thEl: { en: "Element", ja: "元素" }, thIds: { en: "Token IDs", ja: "トークンID" },
+  thCount: { en: "Count", ja: "数" }, thShare: { en: "Share", ja: "割合" },
+  spKicker: { en: "Special · Mystery", ja: "スペシャル · ミステリー" },
+  spTitle: { en: "Golden Voltmouse — 1-of-1", ja: "ゴールデン・ボルトマウス — 1体のみ" },
+  spLead: { en: "Token ID 1111. The only Limited companion in the collection. It is never in a single-mint draw — free or paid. The only way to pull it is a 5-pack mint (0.005 BNB), where ID 1111 joins the eligible pool for that draw. One wallet, one golden mouse, ever.", ja: "トークンID 1111。コレクション唯一のリミテッド仲間。単体ミント（無料・有料）では決して出ません。引けるのは5パックミント（0.005 BNB）のみで、その抽選プールにID 1111が加わります。世界に1体だけの金のマウスです。" },
+  spNote: { en: "When the pool is nearly full, the chance per pack is small — that is the point. No one can buy it directly, and no one is promised it.", ja: "プールがほぼ埋まると、1パックあたりの確率は小さくなります — それが狙いです。直接買うことはできず、誰にも約束されません。" },
+  spCta: { en: "See the 5-pack", ja: "5パックを見る" },
+  mintKicker: { en: "Mint panel", ja: "ミントパネル" },
+  mintTitle: { en: "Mint with your agent — no wallet pop-ups here", ja: "エージェントでミント — ここにウォレットのポップアップはありません" },
+  mintLead: { en: "This page never asks for a wallet connection. Check your Agent ID, copy the prompt, and let your AI agent call the contract for you.", ja: "このページはウォレット接続を求めません。Agent IDを確認し、プロンプトをコピーして、AIエージェントにコントラクトを呼ばせましょう。" },
+  mintDisabled: { en: "⛔ Mint disabled — PREVIEW. Contracts are not deployed yet. The button below stays off until deployment.", ja: "⛔ ミント無効 — プレビュー。コントラクトは未デプロイです。デプロイまで下のボタンは無効のままです。" },
+  priceFree: { en: "Mint #1 · Agent ID only · max 1,000 free total", ja: "ミント#1 · Agent IDのみ · 無料合計最大1,000" },
+  pricePaid: { en: "Each paid mint · max 5 paid / wallet", ja: "有料ミント毎 · ウォレット毎最大5回" },
+  pricePack: { en: "5-pack · includes a chance at ID 1111", ja: "5パック · ID 1111のチャンス付き" },
+  qtyLbl: { en: "Quantity:", ja: "数量：" },
+  agentLbl: { en: "① Agent ID checker — paste your wallet address", ja: "① Agent IDチェッカー — ウォレットアドレスを貼り付け" },
+  agentCheck: { en: "Check Agent ID", ja: "Agent IDを確認" },
+  agentNote: { en: "Reads the SPACE ID registry (0x60B9…022F) through a public BSC RPC. Your address never leaves this page except as an RPC read.", ja: "公開BSC RPCでSPACE IDレジストリ（0x60B9…022F）を読み取ります。アドレスがこのページ外に出るのはRPC読み取りのみです。" },
+  promptLbl: { en: "② Copy the agent prompt — paste it into your Binance Agentic Wallet / AI agent", ja: "② エージェント用プロンプトをコピー — Binance Agentic Wallet / AIエージェントに貼り付け" },
+  copyBtn: { en: "Copy", ja: "コピー" },
+  skillLbl: { en: "③ Mint via the agent skill", ja: "③ エージェントスキルでミント" },
+  skillS1: { en: "<b>Give your agent the skill</b> (SKILL.md) and the prompt above.", ja: "<b>エージェントにスキルを渡す</b>（SKILL.md）と上のプロンプト。" },
+  skillS2: { en: "<b>Free mint:</b> the agent calls <span class=\"mono\">mintFree()</span> on the NFT contract — only if your Agent ID check passed and free mints remain (cap 1,000).", ja: "<b>無料ミント：</b>エージェントがNFTコントラクトの<span class=\"mono\">mintFree()</span>を呼びます — Agent ID確認済みで、無料枠（上限1,000）が残っている場合のみ。" },
+  skillS3: { en: "<b>Paid mint:</b> the agent calls <span class=\"mono\">mintPaid(qty)</span> with 0.001 BNB per mint (qty 1–5, or 5 for the pack at 0.005 BNB).", ja: "<b>有料ミント：</b>エージェントが<span class=\"mono\">mintPaid(qty)</span>を呼びます。1ミントあたり0.001 BNB（qty 1–5、5パックは0.005 BNB）。" },
+  skillS4: { en: "<b>Game bonus free mint:</b> the agent calls <span class=\"mono\">claimGameFreeMint()</span> — only after 10 game milestones, max 2 per wallet, still inside the 1,000 free cap.", ja: "<b>ゲームボーナス無料ミント：</b>エージェントが<span class=\"mono\">claimGameFreeMint()</span>を呼びます — 10マイルストーン達成後のみ、ウォレット毎最大2回、無料上限1,000の範囲内。" },
+  skillS5: { en: "<b>Claim $PIKA:</b> the agent calls <span class=\"mono\">claimGameBonus(milestones)</span> for game milestones, or <span class=\"mono\">claim()</span> for the per-paid-mint bonus.", ja: "<b>$PIKA請求：</b>ゲーム分は<span class=\"mono\">claimGameBonus(milestones)</span>、有料ミント分は<span class=\"mono\">claim()</span>をエージェントが呼びます。" },
+  mintBtn: { en: "Mint — disabled until contracts deploy", ja: "ミント — コントラクトのデプロイまで無効" },
+  mintBtnNote: { en: "This button scrolls here from anywhere on the page. It will only become active after deployment, and minting itself always runs through your agent — never through a pop-up on this page.", ja: "このボタンはページのどこからでもここへスクロールします。デプロイ後にのみ有効になり、ミント自体は常にエージェント経由です — このページのポップアップ経由ではありません。" },
+  tokKicker: { en: "Token", ja: "トークン" },
+  tokTitle: { en: "$PIKA — the spark token", ja: "$PIKA — スパークトークン" },
+  tokTotal: { en: "Total supply: 1,000,000,000 $PIKA", ja: "総供給：1,000,000,000 $PIKA" },
+  tokPool: { en: "— mint reward pool", ja: "— ミント報酬プール" },
+  tokTreas: { en: "— treasury", ja: "— トレジャリー" },
+  tokPer: { en: "per paid mint — claim with claim()", ja: "有料ミント毎 — claim()で請求" },
+  tokCap: { en: "max per wallet from paid mints (5 × 120,000)", ja: "有料ミントからのウォレット毎上限（5 × 120,000）" },
+  tokGameT: { en: "Game milestones pay $PIKA too", ja: "ゲームのマイルストーンでも$PIKAがもらえます" },
+  tokGameP: { en: "Every 1,000 total points in Piklet Run is 1 milestone = 1,000 $PIKA, claimed through the agent skill with claimGameBonus(milestones). Cap: 100,000 $PIKA per wallet from the game (100 milestones). Every 10 milestones also earns 1 bonus free mint (max 2 per wallet).", ja: "ピクレットランで合計1,000ポイント毎にマイルストーン1つ＝1,000 $PIKA。エージェントスキル経由でclaimGameBonus(milestones)により請求。上限はゲームからウォレット毎100,000 $PIKA（100マイルストーン）。10マイルストーン毎にボーナス無料ミント1回（最大2回）。" },
+  tokGameN: { en: "Scores are self-reported from this browser; the contract enforces only the per-wallet caps. It does not verify scores on-chain.", ja: "スコアはこのブラウザからの自己申告です。コントラクトはウォレット毎の上限のみを強制し、スコアをオンチェーンで検証しません。" },
+  mktKicker: { en: "Marketplace", ja: "マーケットプレイス" },
+  mktTitle: { en: "Trade your companions", ja: "仲間をトレード" },
+  mktLead: { en: "Listings live on the project's own marketplace contract: seller keeps 95%, 5% royalty goes to the creator wallet. Browse listings on the market page — read-only, no wallet needed.", ja: "出品はプロジェクト独自のマーケットプレイス・コントラクト上にあります：売り手95%、ロイヤリティ5%はクリエイターウォレットへ。マーケットページで出品を閲覧できます — 読み取り専用、ウォレット不要。" },
+  mktFeesT: { en: "Fees", ja: "手数料" },
+  mktSeller: { en: "to the seller on every sale", ja: "すべての販売で売り手へ" },
+  mktRoy: { en: "royalty to the creator wallet (BAW)", ja: "クリエイターウォレット（BAW）へのロイヤリティ" },
+  mktList: { en: "listing fee (planned)", ja: "出品手数料（予定）" },
+  mktHowT: { en: "How to list / buy", ja: "出品・購入方法" },
+  mktHowP: { en: "Through your agent: list(tokenId, price) to list, buy(tokenId) to buy at the exact listing price. Full instructions and prompts are on the market page.", ja: "エージェント経由：list(tokenId, price)で出品、buy(tokenId)で表示価格ちょうどで購入。詳しい手順とプロンプトはマーケットページにあります。" },
+  mktOpen: { en: "Open the marketplace →", ja: "マーケットプレイスを開く →" },
+  faqKicker: { en: "FAQ", ja: "FAQ" },
+  faqTitle: { en: "Questions, answered plainly", ja: "質問に率直に回答" },
+  faq1q: { en: "When does mint open?", ja: "ミントはいつ始まりますか？" },
+  faq1a: { en: "Not yet — the contracts are not deployed. This page is a preview. The mint-open time will be announced in UTC when deployment is confirmed, and this page will switch from PREVIEW to live.", ja: "まだです — コントラクトは未デプロイです。このページはプレビューです。デプロイ確定後にミント開始時刻をUTCで発表し、このページはプレビューからライブに切り替わります。" },
+  faq2q: { en: "How much does it cost?", ja: "費用はいくらですか？" },
+  faq2a: { en: "Mint #1 is FREE if you hold a SPACE ID Agent ID. Paid mints are 0.001 BNB flat. Max 6 per wallet (1 free + 5 paid). A 5-pack costs 0.005 BNB. The free mint is capped at 1,000 total across all wallets — after that, every mint is paid.", ja: "ミント#1はSPACE IDのAgent IDを持っていれば無料。有料ミントは一律0.001 BNB。ウォレット毎最大6体（無料1＋有料5）。5パックは0.005 BNB。無料ミントは全ウォレット合計で1,000まで — それ以降はすべて有料です。" },
+  faq3q: { en: "How do I mint without connecting a wallet here?", ja: "ここでウォレットを接続せずにミントするには？" },
+  faq3a: { en: "You don't mint on this page at all. Copy the agent prompt from the mint panel, paste it into your Binance Agentic Wallet / AI agent together with the skill (SKILL.md), and the agent calls mintFree() or mintPaid(qty) on the contract for you.", ja: "このページでは一切ミントしません。ミントパネルからエージェント用プロンプトをコピーし、スキル（SKILL.md）と一緒にBinance Agentic Wallet / AIエージェントに貼ると、エージェントがmintFree()またはmintPaid(qty)をコントラクトに呼びます。" },
+  faq4q: { en: "What can I pull from a free mint?", ja: "無料ミントで何が引けますか？" },
+  faq4a: { en: "Free mints draw only from token IDs 1–1000 (Common through Epic). Paid mints draw from IDs 1–1110 (up to Legendary). ID 1111, the Golden Voltmouse, only appears in 5-pack draws.", ja: "無料ミントはトークンID 1–1000（コモン〜エピック）からのみ。有料ミントはID 1–1110（レジェンダリーまで）。ID 1111のゴールデン・ボルトマウスは5パックでのみ出現します。" },
+  faq5q: { en: "How do game milestones work?", ja: "ゲームのマイルストーンはどう機能しますか？" },
+  faq5a: { en: "Play Piklet Run on this page. Every 1,000 total points = 1 milestone = 1,000 $PIKA (claim via the agent skill, cap 100,000 $PIKA per wallet). Every 10 milestones = 1 bonus free mint, max 2 per wallet, still inside the 1,000 free cap. Scores are stored in your browser and self-reported — the contract enforces only the caps, it does not verify scores on-chain.", ja: "このページでピクレットランを遊びましょう。合計1,000ポイント毎にマイルストーン1つ＝1,000 $PIKA（エージェントスキルで請求、上限はウォレット毎100,000 $PIKA）。10マイルストーン毎にボーナス無料ミント1回、最大2回、無料上限1,000の範囲内。スコアはブラウザに保存される自己申告です — コントラクトは上限のみを強制し、スコアをオンチェーンで検証しません。" },
+  faq6q: { en: "What is $PIKA?", ja: "$PIKAとは何ですか？" },
+  faq6a: { en: "The collection's reward token: 1,000,000,000 total (540M pool / 460M treasury). 120,000 $PIKA per paid mint, max 600,000 per wallet. It is a reward token, not an investment — no return is promised.", ja: "コレクションの報酬トークン：総供給1,000,000,000（540Mプール / 460Mトレジャリー）。有料ミント毎に120,000 $PIKA、ウォレット毎最大600,000。報酬トークンであり投資ではありません — リターンの約束はありません。" },
+  faq7q: { en: "What are the marketplace fees?", ja: "マーケットプレイスの手数料は？" },
+  faq7a: { en: "Seller keeps 95%, 5% royalty goes to the creator wallet. Listing is done through your agent with list(tokenId, price); buying with buy(tokenId) at the exact listing price.", ja: "売り手95%、ロイヤリティ5%はクリエイターウォレットへ。出品はエージェント経由でlist(tokenId, price)、購入はbuy(tokenId)で表示価格ちょうどです。" },
+  faq8q: { en: "Are the characters original?", ja: "キャラクターはオリジナルですか？" },
+  faq8a: { en: "Yes. All 17 characters — Piklet, Sproutle, Emberlet, Tidelet, Voltail, Petalhorn, Emberclaw, Tideback, Bloombeast, Infernodrake, Tidecannon, Frostphoenix, Thunderphoenix, Cinderphoenix, Psyguardian, Starpixie and Golden Voltmouse — are original artwork created for PikaCHAN.", ja: "はい。17体すべて — ピクレット、スプラウトル、エンバーレット、タイドレット、ボルテイル、ペタルホーン、エンバークロー、タイドバック、ブルームビースト、インフェルノドレイク、タイドキャノン、フロストフェニックス、サンダーフェニックス、シンダーフェニックス、サイガーディアン、スターピクシー、ゴールデン・ボルトマウス — はPikaCHANのためのオリジナルアートです。" },
+  detKicker: { en: "Details", ja: "詳細" },
+  detTitle: { en: "Contracts & facts", ja: "コントラクトと事実" },
+  footTag: { en: "Four elements. One spark.", ja: "四つの元素。ひとつの火花。" },
+  footX: { en: "Official X: to be announced.", ja: "公式X：近日発表。" },
+  copyLink: { en: "Copy page link", ja: "ページリンクをコピー" },
+  fabMint: { en: "⚡ Mint", ja: "⚡ ミント" }
+};
+function applyLang(l) {
+  LANG = l;
+  document.documentElement.lang = l === "ja" ? "ja" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const k = el.getAttribute("data-i18n");
+    if (I18N[k] && I18N[k][l] !== undefined) el.innerHTML = I18N[k][l];
+  });
+  $("langEn").classList.toggle("on", l === "en");
+  $("langJa").classList.toggle("on", l === "ja");
+  renderGallery(curTier, curEl);
+  renderRarity();
+  updateGameHud();
+}
+$("langEn").addEventListener("click", () => applyLang("en"));
+$("langJa").addEventListener("click", () => applyLang("ja"));
+
+/* ---------- gallery + rarity ---------- */
+let curTier = "all", curEl = "all";
+function renderGallery(tier, el) {
+  curTier = tier; curEl = el;
+  const grid = $("galleryGrid");
+  grid.innerHTML = "";
+  CHARS.filter((c) => (tier === "all" || c.tier === tier) && (el === "all" || c.el === el)).forEach((c) => {
+    const d = document.createElement("div");
+    d.className = "card";
+    d.innerHTML =
+      '<img src="assets/' + c.slug + '.jpg" alt="' + c.name + '" loading="lazy">' +
+      '<div class="cb"><span class="badge ' + c.tier.toLowerCase() + '">' + c.tier + '</span> ' +
+      '<span class="el-tag el-' + c.el.toLowerCase() + '">' + EL_ICON[c.el] + " " + c.el + "</span>" +
+      "<h3>" + c.name + "</h3><p>" + c.count + " in the collection</p>" +
+      '<p class="ids">IDs ' + c.ids + "</p></div>";
+    grid.appendChild(d);
+  });
+  if (!grid.children.length) grid.innerHTML = '<p style="color:var(--muted)">No companions match this filter.</p>';
+}
+$("filters").addEventListener("click", (ev) => {
+  const b = ev.target.closest("button"); if (!b) return;
+  document.querySelectorAll("#filters button").forEach((x) => x.classList.remove("on"));
+  b.classList.add("on"); renderGallery(b.dataset.f, curEl);
+});
+$("elFilters").addEventListener("click", (ev) => {
+  const b = ev.target.closest("button"); if (!b) return;
+  document.querySelectorAll("#elFilters button").forEach((x) => x.classList.remove("on"));
+  b.classList.add("on"); renderGallery(curTier, b.dataset.e);
+});
+function renderRarity() {
+  const tb = $("rarityBody");
+  tb.innerHTML = "";
+  CHARS.forEach((c) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td><b>" + c.name + "</b></td><td>" + c.tier + "</td><td>" + EL_ICON[c.el] + " " + c.el + "</td>" +
+      '<td class="num">' + c.ids + '</td><td class="num">' + c.count + '</td><td class="num">' + (c.count / 1111 * 100).toFixed(1) + "%</td>";
+    tb.appendChild(tr);
+  });
+}
+renderGallery("all", "all");
+renderRarity();
+
+/* ---------- tier bars (random mint: bars show the planned split until live) ---------- */
+function renderTierBars(totalMinted) {
+  const box = $("tierBars");
+  box.innerHTML = "";
+  TIERS.forEach((t) => {
+    const row = document.createElement("div");
+    row.className = "tb-row";
+    const pct = totalMinted == null ? 0 : Math.round((Math.max(0, Math.min(t.total, totalMinted - t.start + 1)) / t.total) * 100);
+    row.innerHTML = "<span><b>" + t.name + "</b></span>" +
+      '<span class="tb-track"><span class="tb-fill" style="display:block;width:' + pct + "%;background:" + t.color + '"></span></span>' +
+      '<span class="tb-num">' + (totalMinted == null ? "—" : Math.max(0, Math.min(t.total, totalMinted - t.start + 1))) + " / " + t.total + "</span>";
+    box.appendChild(row);
+  });
+}
+renderTierBars(null);
+
+/* ---------- public RPC reads (no wallet needed) ---------- */
+async function rpcCall(to, data) {
+  const body = JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to, data }, "latest"], id: 1 });
+  for (const url of RPCS) {
+    try {
+      const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      const j = await r.json();
+      if (j && j.result) return j.result;
+    } catch (e) { /* try next endpoint */ }
+  }
+  throw new Error("all RPC endpoints failed");
+}
+const hexToInt = (h) => parseInt(h, 16);
+const padAddr = (a) => "0x000000000000000000000000" + a.slice(2).toLowerCase();
+
+async function refreshLive() {
+  if (!DEPLOYED) return; // preview mode: keep the honest planned display (0 / 1,111)
+  try {
+    const [tm, fm, pm, open] = await Promise.all([
+      rpcCall(CFG.NFT, SEL.totalMinted),
+      rpcCall(CFG.NFT, SEL.freeMinted),
+      rpcCall(CFG.NFT, SEL.paidMinted),
+      rpcCall(CFG.NFT, SEL.mintOpen)
+    ]);
+    const total = hexToInt(tm), free = hexToInt(fm), paid = hexToInt(pm);
+    const isOpen = hexToInt(open) === 1;
+    $("statMinted").textContent = total.toLocaleString("en-US") + " / 1,111";
+    $("statFree").textContent = free.toLocaleString("en-US");
+    $("statPaid").textContent = paid.toLocaleString("en-US");
+    $("statState").textContent = isOpen ? "Open" : "Closed";
+    $("ringPct").textContent = Math.floor((total / CFG.MAX_SUPPLY) * 100) + "%";
+    $("ringFill").style.strokeDashoffset = String(339.29 * (1 - total / CFG.MAX_SUPPLY));
+    renderTierBars(total);
+    $("liveNote").textContent = "Live from the contract · updated " + new Date().toUTCString().slice(17, 25) + " UTC";
+    const ms = $("mintState");
+    if (isOpen) {
+      ms.textContent = "Mint is OPEN — first mint per wallet is free with an Agent ID, then 0.001 BNB each.";
+      $("mintBtn").disabled = false;
+      $("mintBtn").textContent = "Mint via your agent — see the prompt below";
+    } else {
+      ms.textContent = "Mint is currently closed. The owner opens it from the contract.";
+    }
+  } catch (e) {
+    $("liveNote").textContent = "Live read failed — showing the planned values. Will retry automatically.";
+  }
+}
+refreshLive();
+setInterval(refreshLive, 60000);
+
+/* ---------- Agent ID checker ---------- */
+$("agentCheckBtn").addEventListener("click", async () => {
+  const res = $("agentResult");
+  const addr = $("agentAddr").value.trim();
+  if (!/^0x[0-9a-fA-F]{40}$/.test(addr)) {
+    res.className = "result warn"; res.textContent = LANG === "ja" ? "アドレスの形式が正しくありません。0xで始まる40桁の16進数アドレスを貼り付けてください。" : "That does not look like a wallet address. Paste a 0x address with 40 hex characters.";
+    return;
+  }
+  res.className = "result warn"; res.textContent = LANG === "ja" ? "レジストリを確認中…" : "Checking the registry…";
+  try {
+    const bal = await rpcCall(CFG.AGENT_REGISTRY, SEL.balanceOf + padAddr(addr).slice(2));
+    const holds = BigInt(bal) > 0n;
+    if (holds) {
+      res.className = "result ok";
+      res.textContent = LANG === "ja" ? "YES — このアドレスはAgent IDを持っています。無料ミントの対象です（無料上限1,000の範囲内、デプロイ後）。" : "YES — this address holds an Agent ID. You qualify for the free mint (inside the 1,000 free cap, once deployed).";
+    } else {
+      res.className = "result no";
+      res.textContent = LANG === "ja" ? "NO — このアドレスにAgent IDは見つかりませんでした。有料ミント（0.001 BNB）は引き続き可能です。" : "NO — no Agent ID was found for this address. Paid mints (0.001 BNB) are still available to you.";
+    }
+  } catch (e) {
+    res.className = "result warn";
+    res.textContent = LANG === "ja" ? "レジストリを読み取れませんでした — RPCが応答しません。しばらくしてからもう一度お試しください。" : "Could not read the registry — the public RPC did not answer. Please try again in a moment.";
+  }
+});
+
+/* ---------- qty + agent prompt ---------- */
+let qty = 1;
+function mintPromptText() {
+  return "PikaCHAN mint — BNB Chain (chain ID 56)\n" +
+    "Site: " + CFG.SITE_URL + "\n" +
+    "NFT contract: " + CFG.NFT + " (TBD — not deployed yet; do NOT mint until the contract is deployed and this address is updated)\n" +
+    "$PIKA token: " + CFG.TOKEN + " (TBD)\n" +
+    "Marketplace: " + CFG.MARKET + " (TBD)\n\n" +
+    "My wallet: <PASTE YOUR WALLET ADDRESS>\n" +
+    "Quantity: " + qty + (qty === 5 ? " (5-pack, 0.005 BNB total)" : " (first mint FREE with Agent ID, otherwise 0.001 BNB)") + "\n\n" +
+    "Steps:\n" +
+    "1. Check my Agent ID on the SPACE ID registry 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F.\n" +
+    "2. If this is my first mint and I hold an Agent ID and free mints remain (cap 1,000 total), call mintFree() on the NFT contract.\n" +
+    "3. Otherwise call mintPaid(" + qty + ") and send " + (qty === 5 ? "0.005" : "0.001") + " BNB.\n" +
+    "4. After a paid mint, call claim() on the $PIKA token to claim 120,000 $PIKA per paid mint.\n" +
+    "5. Report the transaction hash and the token ID I received. Mint is a random draw: free draws from IDs 1-1000, paid draws from IDs 1-1110; ID 1111 only in a 5-pack draw.\n" +
+    "Use the PikaCHAN agent skill (SKILL.md) for exact function signatures and safety checks.";
+}
+function renderMintPrompt() { $("mintPromptText").textContent = mintPromptText(); }
+function updatePrice() {
+  $("qty1").classList.toggle("on", qty === 1);
+  $("qty5").classList.toggle("on", qty === 5);
+  $("pricePreview").textContent = qty === 1
+    ? (LANG === "ja" ? "無料 — Agent IDでの初回ミント" : "FREE — first mint with an Agent ID")
+    : (LANG === "ja" ? "0.005 BNB — 5パック（ID 1111のチャンス付き）" : "0.005 BNB — 5-pack (chance at ID 1111)");
+  renderMintPrompt();
+}
+$("qty1").addEventListener("click", () => { qty = 1; updatePrice(); });
+$("qty5").addEventListener("click", () => { qty = 5; updatePrice(); });
+updatePrice();
+
+async function copyText(text, btn) {
+  try { await navigator.clipboard.writeText(text); }
+  catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); document.body.removeChild(ta);
+  }
+  const old = btn.textContent;
+  btn.textContent = LANG === "ja" ? "コピーしました ✓" : "Copied ✓";
+  setTimeout(() => { btn.textContent = old; }, 1600);
+}
+$("mintPromptCopy").addEventListener("click", (ev) => copyText($("mintPromptText").textContent, ev.currentTarget));
+
+/* ---------- share ---------- */
+const shareText = "⚡ PikaCHAN — 1,111 original elemental companions on BNB Chain. Mint #1 FREE with an Agent ID, then 0.001 BNB. Play Piklet Run, earn $PIKA. " + CFG.SITE_URL;
+$("shareX").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
+$("copyLinkBtn").addEventListener("click", (ev) => copyText(CFG.SITE_URL, ev.currentTarget));
+
+/* ---------- toast ---------- */
+let toastTimer = null;
+function showToast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 3600);
+}
+</script>
+
+<script>
+"use strict";
+/* ---------- Piklet Run ---------- */
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const W = 720, H = 240, GROUND = 196;
+const pikImg = new Image();
+let pikReady = false;
+pikImg.onload = () => { pikReady = true; };
+pikImg.onerror = () => { pikReady = false; };
+pikImg.src = "assets/piklet.jpg";
+
+const G = {
+  running: false, over: false, score: 0, lives: 3,
+  total: Number(localStorage.getItem("pikachan_game_total") || 0),
+  y: GROUND - 34, vy: 0, jumping: false, invuln: 0,
+  speed: 3.2, frame: 0, spawnT: 0, orbT: 0,
+  obstacles: [], orbs: [], clouds: [], lastMile: 0
+};
+G.lastMile = Math.floor(G.total / 1000);
+
+function milestones() { return Math.floor(G.total / 1000); }
+function bonusMints() { return Math.min(2, Math.floor(milestones() / 10)); }
+
+function updateGameHud() {
+  $("hudScore").textContent = G.score;
+  $("hudTotal").textContent = G.total.toLocaleString("en-US");
+  $("hudLives").textContent = "♥".repeat(Math.max(0, G.lives)) + "♡".repeat(Math.max(0, 3 - G.lives));
+  $("hudMile").textContent = milestones();
+  $("hudMilePika").textContent = (Math.min(100, milestones()) * 1000).toLocaleString("en-US") + " $PIKA";
+  $("hudBonus").textContent = bonusMints() + " / 2";
+  const into = G.total % 1000;
+  $("mileFill").style.width = (into / 10) + "%";
+  $("mileTxt").textContent = LANG === "ja"
+    ? into.toLocaleString("en-US") + " / 1,000 ポイント — 次のマイルストーンまで " + (1000 - into).toLocaleString("en-US") + " ポイント"
+    : into.toLocaleString("en-US") + " / 1,000 points to the next milestone (" + (1000 - into).toLocaleString("en-US") + " to go).";
+}
+function saveTotal() { localStorage.setItem("pikachan_game_total", String(G.total)); }
+
+function gamePromptText() {
+  const m = milestones();
+  return "PikaCHAN game claim — Piklet Run (BNB Chain, chain ID 56)\n" +
+    "Site: " + CFG.SITE_URL + "\n" +
+    "$PIKA token: " + CFG.TOKEN + " (TBD — not deployed yet; do NOT claim until deployed)\n" +
+    "NFT contract: " + CFG.NFT + " (TBD)\n\n" +
+    "My wallet: <PASTE YOUR WALLET ADDRESS>\n" +
+    "My total Piklet Run points (self-reported, stored in my browser): " + G.total.toLocaleString("en-US") + "\n" +
+    "Milestones reached (1 per 1,000 points): " + m + "\n" +
+    "Game $PIKA to claim: " + (Math.min(100, m) * 1000).toLocaleString("en-US") + " $PIKA (1,000 per milestone, cap 100,000 per wallet)\n" +
+    "Bonus free mints earned (1 per 10 milestones, max 2): " + bonusMints() + "\n\n" +
+    "Steps:\n" +
+    "1. Call claimGameBonus(" + m + ") on the $PIKA token to claim my game milestone bonus.\n" +
+    "2. If I have bonus free mints available, call claimGameFreeMint() on the NFT contract (max 2 per wallet, still inside the 1,000 free cap).\n" +
+    "3. Report the transaction hash(es).\n" +
+    "Note: my score is self-reported from this browser — the contract enforces only the per-wallet caps and does not verify scores on-chain. Use the PikaCHAN agent skill (SKILL.md) for exact signatures and safety checks.";
+}
+$("gameClaimBtn").addEventListener("click", () => {
+  const box = $("gamePromptBox");
+  $("gamePromptText").textContent = gamePromptText();
+  box.style.display = box.style.display === "none" ? "block" : "none";
+  if (box.style.display === "block") box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+$("gamePromptCopy").addEventListener("click", (ev) => copyText($("gamePromptText").textContent, ev.currentTarget));
+
+function drawPiklet(x, y) {
+  if (pikReady) {
+    ctx.save();
+    ctx.beginPath(); ctx.arc(x + 17, y + 17, 17, 0, Math.PI * 2); ctx.clip();
+    ctx.drawImage(pikImg, x, y, 34, 34);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = "#ffd400";
+    ctx.beginPath(); ctx.arc(x + 17, y + 18, 15, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#ffd400";
+    ctx.beginPath(); ctx.moveTo(x + 6, y + 8); ctx.lineTo(x + 10, y - 6); ctx.lineTo(x + 15, y + 6); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x + 19, y + 6); ctx.lineTo(x + 24, y - 6); ctx.lineTo(x + 28, y + 8); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#191300";
+    ctx.beginPath(); ctx.arc(x + 12, y + 15, 2.2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + 22, y + 15, 2.2, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#ff6b35";
+    ctx.beginPath(); ctx.arc(x + 8, y + 21, 2.6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + 26, y + 21, 2.6, 0, Math.PI * 2); ctx.fill();
+  }
+}
+function drawCloud(x, y, s, dark) {
+  ctx.fillStyle = dark ? "#3b4266" : "#232c5c";
+  ctx.beginPath();
+  ctx.arc(x, y, 14 * s, 0, Math.PI * 2);
+  ctx.arc(x + 14 * s, y - 6 * s, 12 * s, 0, Math.PI * 2);
+  ctx.arc(x + 28 * s, y, 13 * s, 0, Math.PI * 2);
+  ctx.fill();
+  if (dark) {
+    ctx.fillStyle = "#ffd400";
+    ctx.beginPath();
+    ctx.moveTo(x + 12, y + 12); ctx.lineTo(x + 6, y + 26); ctx.lineTo(x + 12, y + 26);
+    ctx.lineTo(x + 8, y + 36); ctx.lineTo(x + 18, y + 20); ctx.lineTo(x + 12, y + 20);
+    ctx.closePath(); ctx.fill();
+  }
+}
+function drawOrb(x, y) {
+  ctx.fillStyle = "#ffd400";
+  ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#191300";
+  ctx.font = "bold 13px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText("⚡", x, y + 0.5);
+}
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "#f4f6ff";
+  for (let i = 0; i < 40; i++) {
+    const sx = (i * 173) % W, sy = (i * 47) % 90 + 8;
+    ctx.globalAlpha = 0.25 + ((i % 3) * 0.2);
+    ctx.fillRect(sx, sy, 2, 2);
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "#ffd400";
+  ctx.beginPath(); ctx.arc(660, 34, 16, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#0d1a3d";
+  ctx.fillRect(0, GROUND + 34, W, H - GROUND - 34);
+  ctx.fillStyle = "#4ade80";
+  ctx.fillRect(0, GROUND + 34, W, 3);
+  G.clouds.forEach((c) => drawCloud(c.x, c.y, c.s, false));
+  G.orbs.forEach((o) => drawOrb(o.x, o.y));
+  G.obstacles.forEach((o) => drawCloud(o.x, o.y, o.s, true));
+  if (G.invuln > 0 && Math.floor(G.frame / 6) % 2 === 0) ctx.globalAlpha = 0.4;
+  drawPiklet(60, G.y);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "#a7b0d6";
+  ctx.font = "13px system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "top";
+  if (!G.running && !G.over) ctx.fillText(LANG === "ja" ? "スタートを押して走りましょう — スペースキー／タップでジャンプ" : "Press Start — Space / click / tap to jump", 16, 14);
+  if (G.over) {
+    ctx.fillStyle = "#ffd400"; ctx.font = "bold 22px system-ui, sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(LANG === "ja" ? "ゲームオーバー" : "Game over", W / 2, 84);
+    ctx.fillStyle = "#f4f6ff"; ctx.font = "15px system-ui, sans-serif";
+    ctx.fillText((LANG === "ja" ? "今回のスコア：" : "This run: ") + G.score + "  ·  " + (LANG === "ja" ? "合計：" : "Total: ") + G.total.toLocaleString("en-US"), W / 2, 116);
+    ctx.textAlign = "left";
+  }
+}
+function jump() {
+  if (!G.running || G.over) return;
+  if (!G.jumping) { G.vy = -11.5; G.jumping = true; }
+}
+function resetRun() {
+  G.score = 0; G.lives = 3; G.y = GROUND - 34; G.vy = 0; G.jumping = false;
+  G.invuln = 0; G.speed = 3.2; G.obstacles = []; G.orbs = []; G.over = false;
+  G.spawnT = 0; G.orbT = 0;
+  updateGameHud(); draw();
+}
+function startRun() {
+  if (G.over) resetRun();
+  if (G.running) return;
+  G.running = true;
+  $("gameStart").textContent = LANG === "ja" ? "⏸ 一時停止" : "⏸ Pause";
+  requestAnimationFrame(tick);
+}
+function endRun() {
+  G.running = false; G.over = true;
+  $("gameStart").textContent = LANG === "ja" ? "▶ もう一度走る" : "▶ Run again";
+  saveTotal(); updateGameHud(); draw();
+}
+function tick() {
+  if (!G.running) return;
+  G.frame++;
+  G.speed = 3.2 + Math.min(3.4, G.score / 900);
+  if (G.jumping) {
+    G.vy += 0.62; G.y += G.vy;
+    if (G.y >= GROUND - 34) { G.y = GROUND - 34; G.jumping = false; G.vy = 0; }
+  }
+  if (G.invuln > 0) G.invuln--;
+  G.spawnT--;
+  if (G.spawnT <= 0) {
+    G.obstacles.push({ x: W + 20, y: GROUND - 6, s: 1 + Math.random() * 0.35 });
+    G.spawnT = Math.max(52, 118 - Math.floor(G.score / 12) - Math.floor(Math.random() * 30));
+  }
+  G.orbT--;
+  if (G.orbT <= 0) {
+    G.orbs.push({ x: W + 20, y: 108 + Math.random() * 62 });
+    G.orbT = 150 + Math.floor(Math.random() * 140);
+  }
+  G.obstacles.forEach((o) => { o.x -= G.speed; });
+  G.orbs.forEach((o) => { o.x -= G.speed; });
+  G.obstacles = G.obstacles.filter((o) => o.x > -70);
+  G.orbs = G.orbs.filter((o) => o.x > -30);
+  G.score += 1;
+  if (G.score % 10 === 0) G.total += 1;
+  const px = 60 + 17, py = G.y + 17;
+  G.obstacles.forEach((o) => {
+    const ox = o.x + 14 * o.s, oy = o.y + 4;
+    if (G.invuln === 0 && Math.abs(px - ox) < 26 * o.s && Math.abs(py - oy) < 30) {
+      G.lives--; G.invuln = 90;
+      if (G.lives <= 0) { saveTotal(); updateGameHud(); endRun(); return; }
+    }
+  });
+  G.orbs.forEach((o) => {
+    if (!o.taken && Math.abs(px - o.x) < 28 && Math.abs(py - o.y) < 30) {
+      o.taken = true; G.score += 25; G.total += 25;
+    }
+  });
+  G.orbs = G.orbs.filter((o) => !o.taken);
+  const m = milestones();
+  if (m > G.lastMile) {
+    G.lastMile = m;
+    saveTotal();
+    showToast((LANG === "ja" ? "🎉 マイルストーン達成！" : "🎉 Milestone reached!") + " " + m + " × 1,000 $PIKA" + (m % 10 === 0 ? (LANG === "ja" ? " ＋ ボーナス無料ミント1回！" : " + 1 bonus free mint!") : ""));
+  }
+  updateGameHud();
+  draw();
+  if (G.running) requestAnimationFrame(tick);
+}
+$("gameStart").addEventListener("click", () => {
+  if (G.running) {
+    G.running = false;
+    $("gameStart").textContent = LANG === "ja" ? "▶ 再開" : "▶ Resume";
+    draw();
+  } else startRun();
+});
+$("gameReset").addEventListener("click", () => { G.running = false; resetRun(); $("gameStart").textContent = LANG === "ja" ? "▶ スタート" : "▶ Start run"; });
+canvas.addEventListener("pointerdown", (ev) => { ev.preventDefault(); jump(); });
+document.addEventListener("keydown", (ev) => {
+  if (ev.code === "Space" && document.activeElement !== $("agentAddr")) {
+    ev.preventDefault(); jump();
+  }
+});
+for (let i = 0; i < 4; i++) G.clouds.push({ x: 90 + i * 190, y: 26 + (i % 2) * 22, s: 0.7 + (i % 3) * 0.2 });
+updateGameHud();
+draw();
+</script>
+</body>
+</html>
