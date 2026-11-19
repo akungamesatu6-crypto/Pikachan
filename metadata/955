@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #955",
+  "description": "A powerful water turtle armed with twin tide cannons, the final evolution of the PikaCHAN Water line.",
+  "image": "https://pikachan.vercel.app/assets/tidecannon.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Tidecannon"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Water"
+    }
+  ]
+}

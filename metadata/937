@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #937",
+  "description": "A mighty fire dragon wreathed in inferno flames, the final evolution of the PikaCHAN Fire line.",
+  "image": "https://pikachan.vercel.app/assets/infernodrake.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Infernodrake"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    }
+  ]
+}
