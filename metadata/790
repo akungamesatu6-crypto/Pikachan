@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #790",
+  "description": "An evolved water turtle carrying a swirling tide on its shell.",
+  "image": "https://pikachan.vercel.app/assets/tideback.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Tideback"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Water"
+    }
+  ]
+}

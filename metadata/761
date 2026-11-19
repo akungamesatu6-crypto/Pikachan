@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #761",
+  "description": "An evolved fire lizard with blazing claws and a roaring tail flame.",
+  "image": "https://pikachan.vercel.app/assets/emberclaw.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Emberclaw"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    }
+  ]
+}
