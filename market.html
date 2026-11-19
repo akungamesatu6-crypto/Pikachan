@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--muted);f
       <span class="live-note" id="listNote" style="align-self:center" data-i18n="listNote">Live: 0 listings on-chain so far. This grid fills from the chain via a public BSC RPC.</span>
     </div>
     <div class="listings" id="listingsGrid"></div>
-    <div class="empty" id="emptyBox"><b data-i18n="emptyT">No listings yet.</b><br><span data-i18n="emptyP">The marketplace contract has not been deployed, so nothing is listed. Check back after deployment — or be the first to list once mint opens.</span></div>
+    <div class="empty" id="emptyBox"><b data-i18n="emptyT">No listings yet.</b><br><span data-i18n="emptyP">The marketplace is live — nothing is listed yet. Mint is open now, so once you own a companion you can be the first to list it here.</span></div>
   </div>
 </section>
 
@@ -221,7 +221,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--muted);f
     <div class="sec-head">
       <h2><span class="kicker" data-i18n="faqKicker">FAQ</span><span data-i18n="faqTitle">Marketplace questions</span></h2>
     </div>
-    <details><summary data-i18n="faq1q">Why are there no listings?</summary><p data-i18n="faq1a">The marketplace contract has not been deployed yet, so there is honestly nothing to list or buy. Listings appear here automatically once the contract is live and the first companion is listed.</p></details>
+    <details><summary data-i18n="faq1q">Why are there no listings?</summary><p data-i18n="faq1a">The marketplace contract is deployed and live. There are simply no listings yet — no companion has been listed. Listings appear here automatically once the first one is listed.</p></details>
     <details><summary data-i18n="faq2q">How do I buy without connecting a wallet here?</summary><p data-i18n="faq2a">You don't buy on this page. Copy the buy prompt, paste it into your Binance Agentic Wallet / AI agent with the skill (SKILL.md), and the agent calls buy(tokenId) with the exact listing price.</p></details>
     <details><summary data-i18n="faq3q">Who gets the money when something sells?</summary><p data-i18n="faq3a">95% goes to the seller and 5% royalty goes to the creator wallet. The split is enforced by the marketplace contract at the moment of sale.</p></details>
     <details><summary data-i18n="faq4q">Can I cancel or reprice my listing?</summary><p data-i18n="faq4a">Yes — only the seller can cancel a listing or change its price, any time before it sells. Ask your agent to call the matching function on the marketplace contract.</p></details>
@@ -302,7 +302,7 @@ const I18N = {
   refresh: { en: "↻ Refresh listings", ja: "↻ 出品を更新" },
   listNote: { en: "Live: 0 listings on-chain so far. This grid fills from the chain via a public BSC RPC.", ja: "ライブ：現在の出品は0件です。この一覧は公開BSC RPCからチェーンの情報で埋まります。" },
   emptyT: { en: "No listings yet.", ja: "まだ出品がありません。" },
-  emptyP: { en: "The marketplace contract has not been deployed, so nothing is listed. Check back after deployment — or be the first to list once mint opens.", ja: "マーケットプレイス・コントラクトは未デプロイのため、出品はまだありません。デプロイ後にまた確認してください — またはミント開始後に最初の出品者になりましょう。" },
+  emptyP: { en: "The marketplace is live — nothing is listed yet. Mint is open now, so once you own a companion you can be the first to list it here.", ja: "マーケットプレイスはライブです — まだ出品はありません。ミントは開始中です。仲間を手に入れたら、ここで最初の出品者になれます。" },
   howKicker: { en: "List & buy", ja: "出品・購入" },
   howTitle: { en: "Trade through your agent", ja: "エージェント経由でトレード" },
   listT: { en: "List a companion", ja: "仲間を出品する" },
@@ -331,7 +331,7 @@ const I18N = {
   faqKicker: { en: "FAQ", ja: "FAQ" },
   faqTitle: { en: "Marketplace questions", ja: "マーケットプレイスの質問" },
   faq1q: { en: "Why are there no listings?", ja: "なぜ出品がないのですか？" },
-  faq1a: { en: "The marketplace contract has not been deployed yet, so there is honestly nothing to list or buy. Listings appear here automatically once the contract is live and the first companion is listed.", ja: "マーケットプレイス・コントラクトは未デプロイのため、正直に出品も購入対象もありません。コントラクトがライブになり最初の仲間が出品されると、ここに自動で表示されます。" },
+  faq1a: { en: "The marketplace contract is deployed and live. There are simply no listings yet — no companion has been listed. Listings appear here automatically once the first one is listed.", ja: "マーケットプレイス・コントラクトはデプロイ済みでライブです。まだ出品がないだけです — まだ誰も仲間を出品していません。最初の出品があると、ここに自動で表示されます。" },
   faq2q: { en: "How do I buy without connecting a wallet here?", ja: "ここでウォレットを接続せずに買うには？" },
   faq2a: { en: "You don't buy on this page. Copy the buy prompt, paste it into your Binance Agentic Wallet / AI agent with the skill (SKILL.md), and the agent calls buy(tokenId) with the exact listing price.", ja: "このページでは購入しません。購入用プロンプトをコピーし、スキル（SKILL.md）と一緒にBinance Agentic Wallet / AIエージェントに貼ると、エージェントがbuy(tokenId)を表示価格ちょうどで呼びます。" },
   faq3q: { en: "Who gets the money when something sells?", ja: "売れたとき、お金は誰に行きますか？" },

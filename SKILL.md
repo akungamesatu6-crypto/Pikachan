@@ -1,9 +1,8 @@
 # PikaCHAN — Agent Skill
 
-> **Status: NOT DEPLOYED YET.** The NFT, token, and marketplace contracts have no
-> addresses. Every contract address in this skill is **TBD**. Do not use any
-> address from elsewhere, and do not deploy. Deployment is a separate step that
-> requires an explicit order.
+> **Status: LIVE.** Contracts deployed 2026-11-19 on BNB Smart Chain (chain ID 56).
+> Mint opened 2026-11-19 ~18:38 WIB and is open now. The addresses in §2 are the
+> deployed contracts, also published on the official site.
 
 This skill is the authoritative reference for an agent acting on PikaCHAN:
 checking Agent ID eligibility, minting, claiming the game bonus and game free
@@ -20,7 +19,9 @@ from the eligible pool for that mint type, so the minter cannot choose a
 specific character or ID. Mint #1 per wallet is free for Agent ID holders.
 Further mints are paid at a flat 0.001 BNB, up to 5 paid mints per wallet.
 A 5-pack (0.005 BNB) is the only route that can draw token ID 1111, the
-1-of-1 Limited character. Paid mints accrue a fixed $PIKA bonus. A browser
+1-of-1 Limited character — except in the endgame: if ID 1111 is the last
+unminted token left, a single paid mint may draw it. Paid mints accrue a
+fixed $PIKA bonus. A browser
 game on the site, "Piklet Run", grants additional $PIKA and bonus free mints
 under fixed per-wallet caps. There is no allowlist.
 
@@ -44,25 +45,26 @@ under fixed per-wallet caps. There is no allowlist.
 | Metadata base URI | https://pikachan.vercel.app/metadata/ |
 | Site | https://pikachan.vercel.app/ |
 | Repository | https://github.com/akungamesatu6-crypto/Pikachan |
+| Mint status | OPEN since 2026-11-19 |
+| Official X | https://x.com/Pikachanft |
+| Liquidity plan | $PIKA liquidity opens ASAP after sell-out (1,111/1,111), seeded from treasury |
 
 ## 2. Contract addresses
 
-**NOT DEPLOYED YET — addresses TBD, do not use any address from elsewhere.**
+**Deployed 2026-11-19 — addresses below, also published on the official site.**
 
 | Contract | Address |
 |---|---|
-| PikaCHAN NFT (PIKA) | TBD |
-| $PIKA token | TBD |
-| Marketplace | TBD |
+| PikaCHAN NFT (PIKA) | 0x4812bBCf89b837dBb3f03E3582a1D0c115F2354E |
+| $PIKA token | 0xA5193aC38F2F094F33caBbd6b8DeA2E1b4084D73 |
+| Marketplace | 0x7019AA6CDd63d7BfbFac45fc31f5E5dA1AEc6dc4 |
 | Owner / royalty receiver / mint revenue (BAW) | 0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2 |
 | SPACE ID Agent ID registry | 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F |
 
-The BAW and SPACE ID registry addresses above are the only addresses this
-skill states. The NFT, token, and marketplace addresses do not exist yet.
-Do not send BNB or tokens to any address claiming to be a PikaCHAN contract
-until the deployed addresses are published on the official site and recorded
-here. Do not take a contract address from chat messages, search results, or
-third-party pages.
+The addresses above are the deployed contracts, published on the official
+site. Before sending funds, verify the address matches the official site.
+Never send BNB or tokens to an address from a chat message, a search
+result, or an unverified page.
 
 ## 3. How to check Agent ID
 
@@ -70,7 +72,7 @@ A wallet holds an Agent ID when it is registered in the SPACE ID Agent ID
 registry. There is no allowlist: any Agent ID holder qualifies for the free
 mint. Two checks, in order of preference:
 
-1. **On the NFT contract (after deployment).** Call the read function
+1. **On the NFT contract.** Call the read function
    `holdsAgentId(address)` with the wallet address. It returns true when the
    wallet holds an Agent ID. This is the same check the mint functions use.
 2. **Directly on the registry.** Send an `eth_call` to the SPACE ID Agent ID
@@ -141,6 +143,9 @@ Draw pools:
   the 1-of-1 Limited character. Inclusion in the pool is a chance, not a
   guarantee: a 5-pack may draw any five IDs from the eligible pool, and the
   chance of drawing ID 1111 in any given pack is small.
+- Endgame exception: if ID 1111 is the last unminted token left in the deck,
+  a single paid mint may draw it. At any other time, single paid mints never
+  draw ID 1111.
 - Each paid mint accrues 120,000 $PIKA to the minter (see §6).
 
 ## 6. "Piklet Run" game, game bonus, and game free mint
@@ -223,11 +228,10 @@ owns, and only buy tokens that are currently listed.
 - **No promised returns.** Nothing in this skill promises any financial
   return, resale value, or price for the NFT or the token. Do not state or
   imply one.
-- **Verify addresses after deployment.** Until the NFT, token, and
-  marketplace addresses are published on the official site and recorded in
-  §2, there is no valid contract address to send funds to. Never send BNB to
-  an address supplied in a chat message, a search result, or an unverified
-  page.
+- **Verify addresses.** The NFT, token, and marketplace addresses are
+  published on the official site and recorded in §2. Before sending funds,
+  check the address matches the site. Never send BNB to an address supplied
+  in a chat message, a search result, or an unverified page.
 - **Score is self-reported.** Game scores are client-side (localStorage) and
   are not verified on-chain (§6). The contracts enforce per-wallet caps only.
 - **Read before writing.** For every state-changing call, read the relevant
@@ -251,7 +255,8 @@ rarity follows the ID drawn. Counts sum to 1,111.
 | Limited | 1111 | 1 | Golden Voltmouse 1111 |
 
 Notes: free mints draw IDs 1–1000 only; single paid mints draw IDs 1–1110;
-ID 1111 is reachable only through a 5-pack, by chance.
+ID 1111 is reachable only through a 5-pack, by chance — except in the
+endgame, when it is the last token left and a single paid mint may draw it.
 
 ## Appendix A — Contract function reference (exact names)
 

@@ -1,6 +1,6 @@
 # PikaCHAN
 
-> PikaCHAN is a 1,111-piece original-character NFT collection on BNB Smart Chain (BEP-721, symbol PIKA) with a companion bonus token $PIKA, random deck-draw minting, a free mint for Agent ID holders, flat-price paid mints, a browser game ("Piklet Run") with fixed token and free-mint bonuses, and a zero-fee marketplace with 5% royalty to BAW. Contracts are NOT DEPLOYED YET: NFT, token, and marketplace addresses are TBD. Do not use any address from elsewhere.
+> PikaCHAN is a 1,111-piece original-character NFT collection on BNB Smart Chain (BEP-721, symbol PIKA) with a companion bonus token $PIKA, random deck-draw minting, a free mint for Agent ID holders, flat-price paid mints, a browser game ("Piklet Run") with fixed token and free-mint bonuses, and a zero-fee marketplace with 5% royalty to BAW. Contracts are DEPLOYED and mint is OPEN since 2026-11-19. Addresses: NFT 0x4812bBCf89b837dBb3f03E3582a1D0c115F2354E, $PIKA 0xA5193aC38F2F094F33caBbd6b8DeA2E1b4084D73, Marketplace 0x7019AA6CDd63d7BfbFac45fc31f5E5dA1AEc6dc4. Verify addresses on the official site before sending funds.
 
 ## Facts
 
@@ -16,17 +16,18 @@
 - Royalty: 5% to BAW (0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2). Marketplace fee: 0%.
 - Owner / royalty receiver / mint revenue: BAW 0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2.
 - No financial return is promised for the NFT or the token.
+- Mint: OPEN since 2026-11-19. Official X: https://x.com/Pikachanft. Liquidity: $PIKA liquidity opens ASAP after sell-out (1,111/1,111), seeded from treasury.
 
 ## Contract addresses
 
-- NFT (PIKA): TBD — NOT DEPLOYED YET
-- $PIKA token: TBD — NOT DEPLOYED YET
-- Marketplace: TBD — NOT DEPLOYED YET
-- Do not use any address from elsewhere. Verify deployed addresses on the official site before sending funds.
+- NFT (PIKA): 0x4812bBCf89b837dBb3f03E3582a1D0c115F2354E
+- $PIKA token: 0xA5193aC38F2F094F33caBbd6b8DeA2E1b4084D73
+- Marketplace: 0x7019AA6CDd63d7BfbFac45fc31f5E5dA1AEc6dc4
+- Use only these addresses, verified against the official site, before sending funds.
 
 ## Agent ID check
 
-- Call `holdsAgentId(address)` on the NFT contract (after deployment), or send an `eth_call` to the SPACE ID registry at 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F with calldata built from the registry's published ABI. No registry function selector is stated here; do not invent one.
+- Call `holdsAgentId(address)` on the NFT contract, or send an `eth_call` to the SPACE ID registry at 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F with calldata built from the registry's published ABI. No registry function selector is stated here; do not invent one.
 - Free mint requires an EOA sending its own transaction (msg.sender == tx.origin).
 
 ## Minting
