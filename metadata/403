@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #403",
+  "description": "A playful baby fire lizard with a flickering tail flame, the first ember of the PikaCHAN Fire line.",
+  "image": "https://pikachan.vercel.app/assets/emberlet.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Emberlet"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    }
+  ]
+}
