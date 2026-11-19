@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #30",
+  "description": "A cheerful baby electric mouse crackling with static, the first spark of the PikaCHAN Electric line.",
+  "image": "https://pikachan.vercel.app/assets/piklet.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Piklet"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Electric"
+    }
+  ]
+}
