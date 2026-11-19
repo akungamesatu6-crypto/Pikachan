@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1083",
+  "description": "A blazing fire phoenix reborn from embers, trailing sparks of cinder.",
+  "image": "https://pikachan.vercel.app/assets/cinderphoenix.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Cinderphoenix"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Fire"
+    }
+  ]
+}

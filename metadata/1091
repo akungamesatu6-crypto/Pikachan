@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1091",
+  "description": "A tall psychic guardian whose mind bends light and shields the collection.",
+  "image": "https://pikachan.vercel.app/assets/psyguardian.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Psyguardian"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Psychic"
+    }
+  ]
+}

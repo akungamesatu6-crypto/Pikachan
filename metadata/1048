@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1048",
+  "description": "A storm-born thunder phoenix, wings crackling with raw lightning.",
+  "image": "https://pikachan.vercel.app/assets/thunderphoenix.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Thunderphoenix"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Electric"
+    }
+  ]
+}

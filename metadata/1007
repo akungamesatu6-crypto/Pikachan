@@ -1,0 +1,19 @@
+{
+  "name": "PikaCHAN #1007",
+  "description": "A majestic ice phoenix whose frozen wings shimmer with winter light.",
+  "image": "https://pikachan.vercel.app/assets/frostphoenix.jpg",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Frostphoenix"
+    },
+    {
+      "trait_type": "Tier",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Element",
+      "value": "Ice"
+    }
+  ]
+}
