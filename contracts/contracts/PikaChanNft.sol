@@ -14,8 +14,9 @@
 //   - PAID lane: mintPaid(qty), PUBLIC — any wallet, no agent gate.
 //     qty 1-4: 0.001 BNB each, draws from the combined pool of ids
 //     1-1110. qty 5 (5-pack): 0.005 BNB flat, draws from the combined
-//     pool of ids 1-1110 PLUS Limited 1111 — the ONLY route that can
-//     reach 1111. Chance, not guaranteed. Max 5 paid per wallet.
+//     pool of ids 1-1110 PLUS Limited 1111 — the NORMAL route that can
+//     reach 1111 (the only other route is the endgame single
+//     exception below). Chance, not guaranteed. Max 5 paid per wallet.
 //     Each paid mint accrues 120,000 PIKA (max 600,000/wallet).
 //   - GAME lane: claimGameFreeMint(), 1 EXTRA free mint per 10 game
 //     milestones the wallet has already claimed on the PIKA token
@@ -43,14 +44,14 @@
 //   paid-single pool. No id can ever be minted twice. A 5-pack draws
 //   from the union of both pools PLUS Limited 1111 (one extra slot
 //   while it is still unminted).
-//   KNOWN ENDGAME PROPERTY (spec as written): Limited 1111 can ONLY be
-//   drawn by a 5-pack, and a 5-pack always draws exactly 5 tokens. If
-//   the collection ever reaches a state where fewer than 5 tokens
-//   remain and 1111 is among them (e.g. nobody ever buys a 5-pack and
-//   the last token left is 1111), 1111 becomes unmintable and the
-//   collection caps at 1,110 minted. This is covered by a test
-//   (drain test) and flagged in the build report — it is a property of
-//   the locked spec, not a bug in this implementation.
+//   ENDGAME EXCEPTION (user order 2026-11-19 — fix for the deadlock
+//   above): if Limited 1111 is the ONLY token left in the deck
+//   (free + paid pools empty, 1111 unminted), a SINGLE paid mint
+//   (qty 1, 0.001 BNB) may take it. A 5-pack can never help there —
+//   it always draws exactly 5 tokens, and packPool < 5 reverts
+//   SoldOut. Outside this exact state, a single mint can NEVER draw
+//   1111 (its draw range excludes the limited slot). Covered by the
+//   drain test + a dedicated single-cannot-draw-1111 test.
 //   THE DRAW is deterministic pseudo-randomness (blockhash + timestamp +
 //   sender + draw counter) — it is NOT VRF / provably fair; anyone who
 //   knows the inputs can compute the draw in advance.
@@ -196,6 +197,11 @@ contract PikaChanNft is ERC721, ERC2981, Ownable, ReentrancyGuard {
             if (packPool < 5) revert SoldOut();
             return PRICE_PACK_5;
         }
+        // ENDGAME EXCEPTION: 1111 is the only token left in the deck,
+        // so a single paid mint may take it for 0.001 BNB (see header).
+        if (qty == 1 && _freeRemaining == 0 && _paidRemaining == 0 && !_limitedMinted) {
+            return PRICE;
+        }
         if (_freeRemaining + _paidRemaining < qty) revert SoldOut();
         return PRICE * qty;
     }
@@ -238,10 +244,20 @@ contract PikaChanNft is ERC721, ERC2981, Ownable, ReentrancyGuard {
     }
 
     /// @dev Draw one id from the combined free + paid pools (ids 1-1110),
-    /// weighted by what remains in each. Never returns 1111.
+    /// weighted by what remains in each. Never returns 1111 — EXCEPT
+    /// in the endgame state where 1111 is the only token left in the
+    /// deck (both pools empty, 1111 unminted): then a single paid mint
+    /// takes it. This is the ONLY way a single mint can return 1111.
     function _drawPaidSingle() internal returns (uint256) {
         uint256 total = _freeRemaining + _paidRemaining;
-        if (total == 0) revert SoldOut();
+        if (total == 0) {
+            if (!_limitedMinted) {
+                _limitedMinted = true;
+                _draws++;
+                return LIMITED_ID;
+            }
+            revert SoldOut();
+        }
         uint256 r = _seed() % total;
         uint256 id;
         if (r < _freeRemaining) {
@@ -258,7 +274,8 @@ contract PikaChanNft is ERC721, ERC2981, Ownable, ReentrancyGuard {
 
     /// @dev Draw one id from the combined free + paid pools PLUS Limited
     /// 1111 (5-pack only), weighted by what remains in each. This is the
-    /// ONLY draw that can return 1111.
+    /// normal route that can return 1111; the only other route is the
+    /// endgame single exception in _drawPaidSingle (1111 last token left).
     function _drawPaidPack() internal returns (uint256) {
         uint256 total = _freeRemaining + _paidRemaining + (_limitedMinted ? 0 : 1);
         if (total == 0) revert SoldOut();
@@ -305,7 +322,9 @@ contract PikaChanNft is ERC721, ERC2981, Ownable, ReentrancyGuard {
     }
 
     /// @notice PAID lane: mint `qty` PikaCHAN. PUBLIC — any wallet.
-    /// qty 1-4: 0.001 BNB each, draws from ids 1-1110 (never 1111).
+    /// qty 1-4: 0.001 BNB each, draws from ids 1-1110 (never 1111 —
+    /// except the endgame state where 1111 is the only token left,
+    /// which a single mint may take; see header).
     /// qty 5: 0.005 BNB total, draws from ids 1-1110 + Limited 1111.
     /// Each paid mint accrues 120,000 PIKA. Exact payment only.
     function mintPaid(uint256 qty) external payable nonReentrant {

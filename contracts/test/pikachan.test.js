@@ -1,8 +1,9 @@
 // PikaCHAN test suite — proves the locked spec on-chain, locally.
 // Covers: deployment constants, royalty, Agent ID gate, EOA gate,
 // free/paid/game lanes, exact payment, per-wallet caps, FREE CAP 1000
-// (real 1,000-wallet drain), full drain to 1,110 with 1111 stranded
-// (singles can never draw it), deterministic 5-pack draw of 1111
+// (real 1,000-wallet drain), full drain to 1,111 incl. 1111 via the
+// endgame single exception (singles can never draw it while other
+// tokens remain), deterministic 5-pack draw of 1111
 // (JS mirror of the on-chain draw + forced block timestamp), game
 // bonus caps, and the PIKA token ledger.
 const { expect } = require("chai");
@@ -209,6 +210,25 @@ describe("PikaCHAN paid lane", function () {
     expect(await ethers.provider.getBalance(await nft.getAddress())).to.equal(0);
   });
 
+  it("single paid mint NEVER draws 1111 while other tokens remain", async function () {
+    const { nft, signers } = await deploy();
+    // 30 paid singles from fresh wallets: the single draw range is the
+    // free + paid pools only, so 1111 (outside that range) cannot appear
+    // while anything else is left in the deck.
+    for (let w = 0; w < 6; w++) {
+      const wallet = signers[w];
+      for (let k = 0; k < 5; k++) {
+        const tx = await nft.connect(wallet).mintPaid(1, { value: PRICE });
+        const ids = mintedIdsFromReceipt(await tx.wait(), nft);
+        expect(ids[0]).to.be.within(1, 1110);
+      }
+    }
+    expect(await nft.totalMinted()).to.equal(30);
+    expect(await nft.limitedAvailable()).to.equal(true);
+    expect(await nft.fivePackPoolIncludesLimited()).to.equal(true);
+    await expect(nft.ownerOf(1111)).to.be.reverted;
+  });
+
   it("paid mint caps: max 5 paid / 6 total per wallet", async function () {
     const { nft, signers } = await deploy();
     await nft.connect(signers[0]).mintPaid(5, { value: PACK5 });
@@ -329,7 +349,7 @@ describe("PikaCHAN game bonus", function () {
 });
 
 describe("PikaCHAN FREE CAP 1000 + full drain (slow)", function () {
-  it("1000 free mints from 1000 wallets, then 110 paid singles -> 1110 minted, 1111 stranded", async function () {
+  it("1000 free mints from 1000 wallets, then 110 paid singles -> 1110, endgame single takes 1111 -> 1111 minted", async function () {
     const { nft, token, signers } = await deploy(); // allowAll = true
     const allIds = new Set();
     // 1,000 free mints, in batches of 100 concurrent txs.
@@ -371,14 +391,33 @@ describe("PikaCHAN FREE CAP 1000 + full drain (slow)", function () {
     expect(allIds.size).to.equal(1110);
     expect(await nft.totalMinted()).to.equal(1110);
     expect(await nft.paidMinted()).to.equal(110);
-    // Limited 1111 was NEVER drawn by a single paid mint.
+    // Limited 1111 was NEVER drawn by a single paid mint while other
+    // tokens remained in the deck.
     await expect(nft.ownerOf(1111)).to.be.reverted;
     expect(await nft.fivePackPoolIncludesLimited()).to.equal(true);
-    // Endgame: only 1111 remains, so a single AND a 5-pack both revert SoldOut.
-    await expect(nft.connect(signers[1100]).mintPaid(1, { value: PRICE }))
+    // Endgame: only 1111 remains. A 5-pack still cannot help (it draws
+    // exactly 5, pool is 1) and qty 2+ has nothing to draw.
+    await expect(nft.connect(signers[1100]).mintPaid(5, { value: PACK5 }))
+      .to.be.revertedWithCustomError(nft, "SoldOut");
+    await expect(nft.priceFor(signers[1100].address, 2))
+      .to.be.revertedWithCustomError(nft, "SoldOut");
+    // ENDGAME EXCEPTION: a single paid mint may take the last token.
+    expect(await nft.priceFor(signers[1100].address, 1)).to.equal(PRICE);
+    const endTx = await nft.connect(signers[1100]).mintPaid(1, { value: PRICE });
+    const endIds = mintedIdsFromReceipt(await endTx.wait(), nft);
+    expect(endIds).to.deep.equal([1111]);
+    expect(await nft.ownerOf(1111)).to.equal(signers[1100].address);
+    expect(allIds.has(1111)).to.equal(false);
+    allIds.add(1111);
+    expect(allIds.size).to.equal(1111);
+    expect(await nft.totalMinted()).to.equal(1111);
+    expect(await nft.limitedAvailable()).to.equal(false);
+    expect(await nft.fivePackPoolIncludesLimited()).to.equal(false);
+    // Collection fully drained: nothing left to mint, single or pack.
+    await expect(nft.connect(signers[1101]).mintPaid(1, { value: PRICE }))
       .to.be.revertedWithCustomError(nft, "SoldOut");
     await expect(nft.connect(signers[1101]).mintPaid(5, { value: PACK5 }))
       .to.be.revertedWithCustomError(nft, "SoldOut");
-    expect(await nft.totalMinted()).to.equal(1110);
+    expect(await nft.totalMinted()).to.equal(1111);
   });
 });

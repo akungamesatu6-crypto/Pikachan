@@ -5,12 +5,12 @@
     "costBnb": 0.00005282015
   },
   "nft": {
-    "predicted": "0x75BE1B5AB3e8ACD87A11E8F063214096DeF78066",
-    "gasViaProxy": "2593584",
-    "costBnb": 0.0001296792
+    "predicted": "0x4812bBCf89b837dBb3f03E3582a1D0c115F2354E",
+    "gasViaProxy": "2618633",
+    "costBnb": 0.00013093165
   },
   "market": {
-    "predicted": "0xd300eF3012b5Eb7dA6E506Edca9B9AD8BCcC4679",
+    "predicted": "0x7019AA6CDd63d7BfbFac45fc31f5E5dA1AEc6dc4",
     "gasViaProxy": "1064211",
     "costBnb": 0.00005321055
   },
@@ -19,6 +19,6 @@
   "baseURI": "https://pikachan.vercel.app/metadata/",
   "owner": "0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2",
   "agentIdRegistry": "0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F",
-  "totalCostBnb": 0.0002357099,
+  "totalCostBnb": 0.00023696234999999997,
   "note": "SIMULATION ONLY — nothing deployed to mainnet. Gas estimated on local Hardhat network with identical proxy bytecode. After deploy: token.setMinter(nft), then owner setMintOpen(true) only when ordered."
 }

@@ -53,7 +53,7 @@ The mint panel has **no wallet connection and no wallet button**. Instead: an Ag
 ## Contracts (built 2026-11-19, NOT deployed)
 - `contracts/contracts/`: `PikaToken.sol` (PIKA + `claimGameBonus`), `PikaChanNft.sol` (random deck-draw, free/paid pools, 5-pack incl. 1111, free cap 1000, Agent ID gate on free, `claimGameFreeMint`), `PikaChanMarketplace.sol` (escrow 0% fee, royalty 5% → BAW).
 - Hardhat 0.8.24, optimizer 200, cancun. **Tests: 23/23 passing** (incl. full drain: 1,000 free from 1,000 wallets + 110 paid singles, all IDs unique).
-- CREATE2 predictions (simulation only, NOT live addresses): $PIKA `0xA5193aC38F2F094F33caBbd6b8DeA2E1b4084D73`, NFT `0x75BE1B5AB3e8ACD87A11E8F063214096DeF78066`, Market `0xd300eF3012b5Eb7dA6E506Edca9B9AD8BCcC4679`. Est. total deploy ≈0.00023571 BNB @0.05 gwei.
+- CREATE2 predictions (simulation only, NOT live addresses; updated 2026-11-19 after the endgame fix): $PIKA `0xA5193aC38F2F094F33caBbd6b8DeA2E1b4084D73`, NFT `0x4812bBCf89b837dBb3f03E3582a1D0c115F2354E`, Market `0x7019AA6CDd63d7BfbFac45fc31f5E5dA1AEc6dc4`. Est. total deploy ≈0.00023696 BNB @0.05 gwei. Endgame fix (user order 2026-11-19): a single paid mint may take ID 1111 ONLY when it is the only token left in the deck; otherwise singles can never draw 1111. Tests 24/24, full drain reaches 1,111 minted.
 - **HALT STILL IN FORCE: do NOT deploy to mainnet, do NOT call BAW, do NOT setMintOpen until the user explicitly orders it in the same turn.**
 
 ## Open decisions (for the user)
