@@ -496,6 +496,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
         <p style="margin-top:10px" data-i18n="tokGameN">Scores are self-reported from this browser; the contract enforces only the per-wallet caps. It does not verify scores on-chain.</p>
       </div>
     </div>
+    <div class="info-card" style="margin-top:14px">
+      <h3 data-i18n="tokLiqT">Liquidity plan</h3>
+      <p data-i18n="tokLiqP">$PIKA liquidity opens as soon as possible after the collection sells out (1,111 / 1,111 minted). It is seeded from the treasury — the mint reward pool stays locked for claims.</p>
+    </div>
   </div>
 </section>
 
@@ -724,6 +728,8 @@ const I18N = {
   tokTreas: { en: "— treasury", ja: "— トレジャリー" },
   tokPer: { en: "per paid mint — claim with claim()", ja: "有料ミント毎 — claim()で請求" },
   tokCap: { en: "max per wallet from paid mints (5 × 120,000)", ja: "有料ミントからのウォレット毎上限（5 × 120,000）" },
+  tokLiqT: { en: "Liquidity plan", ja: "流動性プラン" },
+  tokLiqP: { en: "$PIKA liquidity opens as soon as possible after the collection sells out (1,111 / 1,111 minted). It is seeded from the treasury — the mint reward pool stays locked for claims.", ja: "$PIKAの流動性は、コレクション完売（1,111 / 1,111）後、できるだけ早く開始します。トレジャリーから供給します — ミント報酬プールは請求用にロックされたままです。" },
   tokGameT: { en: "Game milestones pay $PIKA too", ja: "ゲームのマイルストーンでも$PIKAがもらえます" },
   tokGameP: { en: "Every 1,000 total points in Piklet Run is 1 milestone = 1,000 $PIKA, claimed through the agent skill with claimGameBonus(milestones). Cap: 100,000 $PIKA per wallet from the game (100 milestones). Every 10 milestones also earns 1 bonus free mint (max 2 per wallet).", ja: "ピクレットランで合計1,000ポイント毎にマイルストーン1つ＝1,000 $PIKA。エージェントスキル経由でclaimGameBonus(milestones)により請求。上限はゲームからウォレット毎100,000 $PIKA（100マイルストーン）。10マイルストーン毎にボーナス無料ミント1回（最大2回）。" },
   tokGameN: { en: "Scores are self-reported from this browser; the contract enforces only the per-wallet caps. It does not verify scores on-chain.", ja: "スコアはこのブラウザからの自己申告です。コントラクトはウォレット毎の上限のみを強制し、スコアをオンチェーンで検証しません。" },
