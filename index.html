@@ -299,13 +299,13 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
         <div class="stat-row">
           <div class="stat"><b id="statFree">0</b><span data-i18n="statFree">free minted</span></div>
           <div class="stat"><b id="statPaid">0</b><span data-i18n="statPaid">paid minted</span></div>
-          <div class="stat"><b id="statState">Closed</b><span data-i18n="statState">mint state</span></div>
+          <div class="stat"><b id="statState">Open</b><span data-i18n="statState">mint state</span></div>
         </div>
       </div>
       <div>
         <div class="tierbars" id="tierBars"></div>
-        <p class="live-note" id="liveNote" data-i18n="liveNote">Live from the contract through a public BSC RPC (no wallet needed), refreshed automatically. Mint has not opened yet — 0 / 1,111 minted so far.</p>
-        <span class="mint-state" id="mintState" data-i18n="mintState">Mint is not open yet. First mint per wallet will be free with an Agent ID, then 0.001 BNB each.</span>
+        <p class="live-note" id="liveNote" data-i18n="liveNote">Live from the contract through a public BSC RPC (no wallet needed), refreshed automatically. Mint is open — 0 / 1,111 minted so far.</p>
+        <span class="mint-state" id="mintState" data-i18n="mintState">Mint is OPEN — first mint per wallet is free with an Agent ID, then 0.001 BNB each.</span>
       </div>
     </div>
   </div>
@@ -422,7 +422,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
       <p class="lead" data-i18n="mintLead">This page never asks for a wallet connection. Check your Agent ID, copy the prompt, and let your AI agent call the contract for you.</p>
     </div>
     <div class="mint-panel">
-      <span class="mint-state" data-i18n="mintDisabled">⛔ Mint is not open yet. The button below stays off until the owner opens mint.</span>
+      <span class="mint-state" data-i18n="mintDisabled">✅ Mint is open — run the prompt below with your agent to mint.</span>
       <div class="price-grid">
         <div class="price-box"><b>FREE</b><span data-i18n="priceFree">Mint #1 · Agent ID only · max 1,000 free total</span></div>
         <div class="price-box"><b>0.001 BNB</b><span data-i18n="pricePaid">Each paid mint · max 5 paid / wallet</span></div>
@@ -469,8 +469,8 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
         </ol>
       </div>
 
-      <button class="btn block" id="mintBtn" type="button" disabled data-i18n="mintBtn">Mint — not open yet</button>
-      <p class="live-note" data-i18n="mintBtnNote">This button scrolls here from anywhere on the page. It will only become active after deployment, and minting itself always runs through your agent — never through a pop-up on this page.</p>
+      <button class="btn block" id="mintBtn" type="button" disabled data-i18n="mintBtn">Mint via your agent — see the prompt below</button>
+      <p class="live-note" data-i18n="mintBtnNote">This button scrolls here from anywhere on the page. Mint is open now, and minting itself always runs through your agent — never through a pop-up on this page.</p>
     </div>
   </div>
 </section>
@@ -529,7 +529,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 90px;color:var(--muted);f
     <div class="sec-head">
       <h2><span class="kicker" data-i18n="faqKicker">FAQ</span><span data-i18n="faqTitle">Questions, answered plainly</span></h2>
     </div>
-    <details><summary data-i18n="faq1q">When does mint open?</summary><p data-i18n="faq1a">The contracts are deployed. Mint is not open yet — the mint-open time will be announced in UTC, and this page switches to live automatically.</p></details>
+    <details><summary data-i18n="faq1q">Is mint open?</summary><p data-i18n="faq1a">Yes — the contracts are deployed and mint is open. This page reads the live mint state from the contract and switches automatically.</p></details>
     <details><summary data-i18n="faq2q">How much does it cost?</summary><p data-i18n="faq2a">Mint #1 is FREE if you hold a SPACE ID Agent ID. Paid mints are 0.001 BNB flat. Max 6 per wallet (1 free + 5 paid). A 5-pack costs 0.005 BNB. The free mint is capped at 1,000 total across all wallets — after that, every mint is paid.</p></details>
     <details><summary data-i18n="faq3q">How do I mint without connecting a wallet here?</summary><p data-i18n="faq3a">You don't mint on this page at all. Copy the agent prompt from the mint panel, paste it into your Binance Agentic Wallet / AI agent together with the skill (SKILL.md), and the agent calls mintFree() or mintPaid(qty) on the contract for you.</p></details>
     <details><summary data-i18n="faq4q">What can I pull from a free mint?</summary><p data-i18n="faq4a">Free mints draw only from token IDs 1–1000 (Common through Epic). Paid mints draw from IDs 1–1110 (up to Legendary). ID 1111, the Golden Voltmouse, only appears in 5-pack draws.</p></details>
@@ -644,7 +644,7 @@ const I18N = {
   navToken: { en: "Token", ja: "トークン" }, navMarket: { en: "Market", ja: "マーケット" },
   navFaq: { en: "FAQ", ja: "FAQ" }, navMint: { en: "Mint", ja: "ミント" },
   previewTitle: { en: "Contracts deployed.", ja: "コントラクトはデプロイ済みです。" },
-  previewText: { en: "Mint has not opened yet. The mint-open time will be announced in UTC.", ja: "ミントはまだ開始していません。開始時刻はUTCで発表します。" },
+  previewText: { en: "Mint is open.", ja: "ミントは開始中です。" },
   heroSub: { en: "Four elements. One spark.", ja: "四つの元素。ひとつの火花。" },
   heroTag: { en: "1,111 original elemental companions on BNB Chain — Electric, Fire, Water and Plant, rising from baby starters to final evolutions under a night sky.", ja: "BNBチェーン上のオリジナル仲間1,111体 — 電気・火・水・植物。夜空の下、ベビーから最終進化へ。" },
   chipSupply: { en: "supply", ja: "供給" }, chipFree: { en: "with Agent ID", ja: "Agent IDで無料" },
@@ -660,8 +660,8 @@ const I18N = {
   ringLbl: { en: "minted of 1,111 total supply", ja: "総供給1,111体中のミント数" },
   statFree: { en: "free minted", ja: "無料ミント" }, statPaid: { en: "paid minted", ja: "有料ミント" },
   statState: { en: "mint state", ja: "ミント状態" },
-  liveNote: { en: "Live from the contract through a public BSC RPC (no wallet needed), refreshed automatically. Mint has not opened yet — 0 / 1,111 minted so far.", ja: "公開BSC RPCからコントラクトをライブで読み取り、自動更新します。ミントはまだ開始していません — 現在0 / 1,111です。" },
-  mintState: { en: "Mint is not open yet. First mint per wallet will be free with an Agent ID, then 0.001 BNB each.", ja: "ミントはまだ開始していません。ウォレット毎の初回はAgent IDで無料、その後は0.001 BNBです。" },
+  liveNote: { en: "Live from the contract through a public BSC RPC (no wallet needed), refreshed automatically. Mint is open — 0 / 1,111 minted so far.", ja: "公開BSC RPCからコントラクトをライブで読み取り、自動更新します。ミントは開始しました — 現在0 / 1,111です。" },
+  mintState: { en: "Mint is OPEN — first mint per wallet is free with an Agent ID, then 0.001 BNB each.", ja: "ミント開始中 — ウォレット毎の初回はAgent IDで無料、その後は0.001 BNBです。" },
   howKicker: { en: "How it works", ja: "仕組み" },
   howTitle: { en: "Four steps to your companion", ja: "仲間を迎える4ステップ" },
   step1t: { en: "Check your Agent ID", ja: "Agent IDを確認" },
@@ -700,7 +700,7 @@ const I18N = {
   mintKicker: { en: "Mint panel", ja: "ミントパネル" },
   mintTitle: { en: "Mint with your agent — no wallet pop-ups here", ja: "エージェントでミント — ここにウォレットのポップアップはありません" },
   mintLead: { en: "This page never asks for a wallet connection. Check your Agent ID, copy the prompt, and let your AI agent call the contract for you.", ja: "このページはウォレット接続を求めません。Agent IDを確認し、プロンプトをコピーして、AIエージェントにコントラクトを呼ばせましょう。" },
-  mintDisabled: { en: "⛔ Mint is not open yet. The button below stays off until the owner opens mint.", ja: "⛔ ミントはまだ開始していません。オーナーがミントを開始するまで下のボタンは無効のままです。" },
+  mintDisabled: { en: "✅ Mint is open — run the prompt below with your agent to mint.", ja: "✅ ミント開始中 — 下のプロンプトをエージェントで実行してミントしてください。" },
   priceFree: { en: "Mint #1 · Agent ID only · max 1,000 free total", ja: "ミント#1 · Agent IDのみ · 無料合計最大1,000" },
   pricePaid: { en: "Each paid mint · max 5 paid / wallet", ja: "有料ミント毎 · ウォレット毎最大5回" },
   pricePack: { en: "5-pack · includes a chance at ID 1111", ja: "5パック · ID 1111のチャンス付き" },
@@ -716,8 +716,8 @@ const I18N = {
   skillS3: { en: "<b>Paid mint:</b> the agent calls <span class=\"mono\">mintPaid(qty)</span> with 0.001 BNB per mint (qty 1–5, or 5 for the pack at 0.005 BNB).", ja: "<b>有料ミント：</b>エージェントが<span class=\"mono\">mintPaid(qty)</span>を呼びます。1ミントあたり0.001 BNB（qty 1–5、5パックは0.005 BNB）。" },
   skillS4: { en: "<b>Game bonus free mint:</b> the agent calls <span class=\"mono\">claimGameFreeMint()</span> — only after 10 game milestones, max 2 per wallet, still inside the 1,000 free cap.", ja: "<b>ゲームボーナス無料ミント：</b>エージェントが<span class=\"mono\">claimGameFreeMint()</span>を呼びます — 10マイルストーン達成後のみ、ウォレット毎最大2回、無料上限1,000の範囲内。" },
   skillS5: { en: "<b>Claim $PIKA:</b> the agent calls <span class=\"mono\">claimGameBonus(milestones)</span> for game milestones, or <span class=\"mono\">claim()</span> for the per-paid-mint bonus.", ja: "<b>$PIKA請求：</b>ゲーム分は<span class=\"mono\">claimGameBonus(milestones)</span>、有料ミント分は<span class=\"mono\">claim()</span>をエージェントが呼びます。" },
-  mintBtn: { en: "Mint — not open yet", ja: "ミント — まだ開始していません" },
-  mintBtnNote: { en: "This button scrolls here from anywhere on the page. It will only become active after deployment, and minting itself always runs through your agent — never through a pop-up on this page.", ja: "このボタンはページのどこからでもここへスクロールします。デプロイ後にのみ有効になり、ミント自体は常にエージェント経由です — このページのポップアップ経由ではありません。" },
+  mintBtn: { en: "Mint via your agent — see the prompt below", ja: "エージェントでミント — 下のプロンプトを参照" },
+  mintBtnNote: { en: "This button scrolls here from anywhere on the page. Mint is open now, and minting itself always runs through your agent — never through a pop-up on this page.", ja: "このボタンはページのどこからでもここへスクロールします。ミントは開始中です。ミント自体は常にエージェント経由です — このページのポップアップ経由ではありません。" },
   tokKicker: { en: "Token", ja: "トークン" },
   tokTitle: { en: "$PIKA — the spark token", ja: "$PIKA — スパークトークン" },
   tokTotal: { en: "Total supply: 1,000,000,000 $PIKA", ja: "総供給：1,000,000,000 $PIKA" },
@@ -740,8 +740,8 @@ const I18N = {
   mktOpen: { en: "Open the marketplace →", ja: "マーケットプレイスを開く →" },
   faqKicker: { en: "FAQ", ja: "FAQ" },
   faqTitle: { en: "Questions, answered plainly", ja: "質問に率直に回答" },
-  faq1q: { en: "When does mint open?", ja: "ミントはいつ始まりますか？" },
-  faq1a: { en: "The contracts are deployed. Mint is not open yet — the mint-open time will be announced in UTC, and this page switches to live automatically.", ja: "コントラクトはデプロイ済みです。ミントはまだ開始していません — 開始時刻はUTCで発表され、このページは自動的にライブに切り替わります。" },
+  faq1q: { en: "Is mint open?", ja: "ミントは開始していますか？" },
+  faq1a: { en: "Yes — the contracts are deployed and mint is open. This page reads the live mint state from the contract and switches automatically.", ja: "はい — コントラクトはデプロイ済みで、ミントは開始中です。このページはコントラクトからライブのミント状態を読み取り、自動的に切り替わります。" },
   faq2q: { en: "How much does it cost?", ja: "費用はいくらですか？" },
   faq2a: { en: "Mint #1 is FREE if you hold a SPACE ID Agent ID. Paid mints are 0.001 BNB flat. Max 6 per wallet (1 free + 5 paid). A 5-pack costs 0.005 BNB. The free mint is capped at 1,000 total across all wallets — after that, every mint is paid.", ja: "ミント#1はSPACE IDのAgent IDを持っていれば無料。有料ミントは一律0.001 BNB。ウォレット毎最大6体（無料1＋有料5）。5パックは0.005 BNB。無料ミントは全ウォレット合計で1,000まで — それ以降はすべて有料です。" },
   faq3q: { en: "How do I mint without connecting a wallet here?", ja: "ここでウォレットを接続せずにミントするには？" },
@@ -900,7 +900,7 @@ $("agentCheckBtn").addEventListener("click", async () => {
     const holds = BigInt(bal) > 0n;
     if (holds) {
       res.className = "result ok";
-      res.textContent = LANG === "ja" ? "YES — このアドレスはAgent IDを持っています。無料ミントの対象です（無料上限1,000の範囲内、デプロイ後）。" : "YES — this address holds an Agent ID. You qualify for the free mint (inside the 1,000 free cap, once deployed).";
+      res.textContent = LANG === "ja" ? "YES — このアドレスはAgent IDを持っています。無料ミントの対象です（無料上限1,000の範囲内、ミント開始中）。" : "YES — this address holds an Agent ID. You qualify for the free mint (inside the 1,000 free cap, mint is open now).";
     } else {
       res.className = "result no";
       res.textContent = LANG === "ja" ? "NO — このアドレスにAgent IDは見つかりませんでした。有料ミント（0.001 BNB）は引き続き可能です。" : "NO — no Agent ID was found for this address. Paid mints (0.001 BNB) are still available to you.";
